@@ -213,7 +213,7 @@
 
     ;; Set autocommands conditional on server_capabilities
     (if client.resolved_capabilities.document_highlight
-      (vim.api.nvim_exec
+      (vim.cmd
         "hi def link LspReferenceText CursorLine
         hi def link LspReferenceWrite CursorLine
         hi def link LspReferenceRead CursorLine
@@ -222,7 +222,7 @@
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END" false))
+        augroup END"))
 
     (u.run-hook *lsp-attach-hook* client bufnr))
 
