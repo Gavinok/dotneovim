@@ -284,4 +284,7 @@
 ; (u.noremap :n :<leader>b ())
 (u.noremap :n :Q ":Git")
 
+
+(u.noremap :n :<leader>y ":let @+ = expand('%:p')")
+
 (end-timer init-timer "Init loaded in %f msecs.")
