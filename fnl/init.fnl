@@ -81,7 +81,9 @@
   :wildmode        "longest:full,full"
   :wildignorecase  true
   :wildignore      "*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache"
-  :virtualedit     :block
+  :virtualedit     :block)
+
+
 ; Capital Quick first letter of a word or a regain
 ; should eventually be replaced  with fennel
 (vim.cmd "nmap <leader>t :set opfunc=dotvim#titlecase<CR>g@")
@@ -103,6 +105,7 @@
   ;else
   (set nvim.o.grepprg "grep -R -n --exclude-dir=.git,.cache"))
 
+; fennel stuff
 (use [(:Olical/conjure {:opt true})
       :Olical/fennel.vim]
 
@@ -194,9 +197,9 @@
        :gR    #(vim.lsp.buf.references)
        :K     #(vim.lsp.buf.hover)
        :gi    #(vim.lsp.buf.implementation)
-       :gs #(vim.lsp.buf.signature_help)
-       "[d" #(vim.lsp.diagnostic.goto_prev)
-       "]d" #(vim.lsp.diagnostic.goto_next)
+       :gs    #(vim.lsp.buf.signature_help)
+       "[d"   #(vim.lsp.diagnostic.goto_prev)
+       "]d"   #(vim.lsp.diagnostic.goto_next)
        :<LocalLeader>wa #(vim.lsp.buf.add_workspace_folder)
        :<LocalLeader>wr #(vim.lsp.buf.remove_workspace_folder)
        :<LocalLeader>wl #(a.pr (vim.lsp.buf.list_workspace_folders))
