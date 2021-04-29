@@ -28,7 +28,10 @@
 (set nvim.g.mapleader " ") ; map leader to space
 
 (set nvim.o.undodir (.. (vim.fn.stdpath "cache") "/vim/undo/") )
-(set nvim.o.undofile true)
+
+ ;; for some reason (set nvim.o.undofile true) won't work
+(vim.cmd "set undofile")
+
 (a.assoc nvim.o
   :mouse          :a
   :title          true                    ;; Update window title
@@ -78,7 +81,6 @@
   :wildignorecase  true
   :wildignore      "*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache"
   :virtualedit     :block
-  :undofile        true)
 ; Capital Quick first letter of a word or a regain
 ; should eventually be replaced  with fennel
 (vim.cmd "nmap <leader>t :set opfunc=dotvim#titlecase<CR>g@")
