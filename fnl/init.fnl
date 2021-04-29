@@ -79,6 +79,11 @@
   :wildignore      "*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache"
   :virtualedit     :block
   :undofile        true)
+; Capital Quick first letter of a word or a regain
+; should eventually be replaced  with fennel
+(vim.cmd "nmap <leader>t :set opfunc=dotvim#titlecase<CR>g@")
+(vim.cmd "xmap <leader>t :<C-U>call dotvim#titlecase(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>")
+(vim.cmd "nmap <leader>T :set opfunc=dotvim#titlecase<Bar>exe 'norm! 'v:count1.'g@_'<CR>")
 
 (fn executable? [command]
         (nvim.fn.executable command))
