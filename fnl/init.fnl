@@ -263,7 +263,7 @@
 (u.map :n :<leader>v  ":call dotvim#ToggleQuickfix()")
 (u.map :n :<leader>o  ":put =repeat(nr2char(10), v:count1)" { :silent true })
 (u.map :n :<leader>O  ":put! =repeat(nr2char(10), v:count1)" {:silent true})
-(u.map :n :cd  (.. ":cd " (vim.api.nvim_eval "expand('%:h')"))) ; should replace with just entering the keys
+; (u.map :n :cd  (.. ":cd " (vim.api.nvim_eval "expand('%:h')"))) ; should replace with just entering the keys
 
 (u.noremap :n :<BS>         "mz[s1z=`z")
 
