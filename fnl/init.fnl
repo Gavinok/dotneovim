@@ -267,7 +267,7 @@
 
 (u.noremap :n :<BS>         "mz[s1z=`z")
 
-(u.noremap :n :<leader>sudo (.. ":w !sudo tee > /dev/null " (vim.api.nvim_eval "expand('%')")))
+(u.noremap :n :<leader>sudo (.. ":w !sudo tee > /dev/null " (nvim.eval "expand('%')")))
 (u.noremap :n :<leader>co (..
                             ":!opout "
                             (vim.api.nvim_eval "expand('%')")))
