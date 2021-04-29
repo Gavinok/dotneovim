@@ -145,8 +145,35 @@
      (nvim.ex.highlight "Terminal    guibg=NONE")
      (nvim.ex.highlight "LineNr      guibg=NONE"))
 
-(use [:axvr/org.vim]
-     (nvim.ex.highlight "link orgHeading2 Normal"))
+; (use [:axvr/org.vim]
+;      (nvim.ex.highlight "link orgHeading2 Normal"))
+
+(use [:dhruvasagar/vim-dotoo
+      :emaniacs/OrgEval.vim]
+     ; set autocmd for orgfiles
+     ; should be replaced with fennel
+     (vim.cmd
+       "augroup org_is_dotoo
+       autocmd! BufRead,BufNewFile *.org  setlocal filetype=dotoo
+       augroup END")
+     ; Viml: let g:dotoo#agenda#files = ['~/Documents/org/*.org']
+     (set nvim.g.dotoo#agenda#files ["~/Documents/org/*.org"])
+     (nvim.ex.highlight "dotoo_shade_stars ctermfg=NONE guifg='#000000'")
+     (u.noremap :n :<leader>e ":OrgEval")
+     (set nvim.g.org_eval_run_cmd 
+          {:python "python3"
+           :clojure "clojure"
+           :racket "racket"
+           :haskell "runhaskell"
+           :sh "sh"
+           :bash "bash"
+           :awk "awk -f"
+           :java "java --source 11"
+           :c "tcc -run"
+           :math "qalc"
+           :apl "apl -s"
+           :javascript "node"
+           :r "Rscript -"}))
 
 ; floating completion
 (use [:ncm2/float-preview.nvim]
