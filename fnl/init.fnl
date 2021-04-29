@@ -238,6 +238,14 @@
                             ":!opout "
                             (vim.api.nvim_eval "expand('%')")))
 
+(u.noremap :n "]a" ":silent! cnext")
+(u.noremap :n "[a" ":silent! cprevious")
+(u.noremap :n "]A" ":silent! lnext")
+(u.noremap :n "[A" ":silent! lprevious")
+
+;quick buffer navigation
+(u.noremap :n "]b" ":silent! bnext")
+(u.noremap :n "[b" ":silent! bprevious")
 ; jumping between files
 ; (u.noremap :n :<leader>b ())
 ; (end-timer init-timer "Init loaded in %f msecs.")
