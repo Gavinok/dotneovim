@@ -248,6 +248,6 @@
 (u.noremap :n "[b" ":silent! bprevious")
 ; jumping between files
 ; (u.noremap :n :<leader>b ())
-; (end-timer init-timer "Init loaded in %f msecs.")
+(u.noremap :n :Q ":Gstatus")
 
 (end-timer init-timer "Init loaded in %f msecs.")
