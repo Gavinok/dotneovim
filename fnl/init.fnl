@@ -1,6 +1,7 @@
 ; example 1 https://github.com/steelsojka/dotfiles2/tree/107f53d112ee5a575af4d3a34b5b528294e5580e/.vim/fnl/dotfiles
 ; example 2 https://github.com/Olical/dotfiles/tree/master/stowed/.config/nvim/fnl/dotfiles
 ; example 3 https://www.github.com/Javyre/etc/tree/master/nvim%2Ffnl%2Finit.fnl
+; lua guid https://github.com/nanotee/nvim-lua-guide
 
 (fn begin-timer []
   (vim.loop.hrtime))
