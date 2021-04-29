@@ -207,9 +207,9 @@
 
     ;; Set some keybinds conditional on server capabilities
     (if client.resolved_capabilities.document_formatting
-      (u.map :n :<LocalLeader>lf #(vim.lsp.buf.formatting) opts))
+      (u.map :n :<LocalLeader>gq #(vim.lsp.buf.formatting) opts))
     (if client.resolved_capabilities.document_range_formatting
-      (u.map :v :<LocalLeader>lf #(vim.lsp.buf.range_formatting) opts))
+      (u.map :v :<LocalLeader>gq #(vim.lsp.buf.range_formatting) opts))
 
     ;; Set autocommands conditional on server_capabilities
     (if client.resolved_capabilities.document_highlight
