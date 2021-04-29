@@ -282,6 +282,6 @@
 (u.noremap :n "[b" ":silent! bprevious")
 ; jumping between files
 ; (u.noremap :n :<leader>b ())
-(u.noremap :n :Q ":Gstatus")
+(u.noremap :n :Q ":Git")
 
 (end-timer init-timer "Init loaded in %f msecs.")
