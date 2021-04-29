@@ -100,26 +100,6 @@ function! dotvim#WordProcessor() abort
 endfu
 " 1}}} "Toggle Prose Mode
 
-" netrwmappings {{{1
-" for - in vim
-function! dotvim#Opendir(cmd) abort
-	if expand('%') =~# '^$\|^term:[\/][\/]'
-		execute a:cmd '.'
-	else
-		execute a:cmd '%:h'
-		let pattern = '^\%(| \)*'.escape(expand('#:t'), '.*[]~\').'[/*|@=]\=\%($\|\t\)'
-		call search(pattern, 'wc')
-	endif
-endfunction
-
-" " now - doesnt use <space> after moving up a directory
-function! dotvim#NetrwMapping() abort
-	let netrw_sid = maparg('s', 'n', 0, 1)['sid']
-	execute 'nnoremap <buffer> -  :call <SNR>'.netrw_sid.'_NetrwBrowseUpDir(1)<CR>'
-	execute 'nnoremap <buffer> zo :<C-U>call <SNR>'.netrw_sid.'_NetrwHidden(1)<CR>'
-endfunction
-" 1}}} "netrwmappings
-
 " ToggleAutocompile {{{1
 function! dotvim#ToggleAutocompile() abort
 	if !exists('b:autocompile')
@@ -188,39 +168,6 @@ function! dotvim#MRU(command, arg)
 endfunction
 " 1}}} "MRU
 
-" Open {{{1
-" What command to use
-function! dotvim#Open() abort
-	if !empty($PLUMBER)
-		return $PLUMBER
-	elseif executable('xdg-open')
-		return 'xdg-open'
-	elseif executable('open')
-		return 'open'
-	endif
-	return 'explorer'
-endfunction
-" 1}}} "Open
-
-" FormatFile() {{{1
-" quickly format the file without moving the cursor or window
-function! dotvim#FormatFile()
-	let b:PlugView=winsaveview()
-	exe 'silent normal! gg=G'
-	call winrestview(b:PlugView)
-	echo 'file indented'
-endfunction
-" 1}}} "FormatFile()
-
-" minimal gofmt {{{1
-function! dotvim#Gofmt()
-	let b:PlugView=winsaveview()
-	exe 'silent %!gofmt'
-	call winrestview(b:PlugView)
-	echo 'file indented'
-endfunction
-"  1}}} "minimal gofmt
-
 " Minimal Async Command {{{1
 " based on https://gist.github.com/hauleth/0cce9962ffc9a09b3893d53dbcd3abf9
 function! s:populate(file, cmd, done) abort
@@ -253,18 +200,6 @@ function! dotvim#Do(...) abort
 	endif
 endfunction
 " 1}}} "Minimal Async Command
-
-" Run command in Terminal {{{1
-function! dotvim#TermCmd(...)
-	let cmd = substitute(join(a:000), '%', expand('%'), '')
-	if has('nvim')
-		exec 'split term://' . cmd
-		exec 'normal! i'
-	else
-		exec 'term ' . cmd
-	endif
-endfunction
-" 1}}} "Run command in Terminal
 
 " ScreenShots in Markup {{{1
 function! dotvim#OrgScreenShot(desc, dir, filename)
