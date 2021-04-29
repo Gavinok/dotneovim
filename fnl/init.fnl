@@ -80,6 +80,21 @@
   :virtualedit     :block
   :undofile        true)
 
+(fn executable? [command]
+        (nvim.fn.executable command))
+
+; grepprog
+(if (executable? "rg")
+  ;then
+  (do
+     (set nvim.o.grepprg "rg  --vimgrep")
+     (set nvim.o.grepformat "%f:%l:%c:%m"))
+  (executable? "ag")
+  ;then
+  (set nvim.o.grepprg "ag --vimgrep")
+  ;else
+  (set nvim.o.grepprg "grep -R -n --exclude-dir=.git,.cache"))
+
 (use [(:Olical/conjure {:opt true})
       :Olical/fennel.vim]
 
