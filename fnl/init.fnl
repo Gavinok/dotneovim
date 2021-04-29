@@ -26,7 +26,9 @@
 
 ;; leader
 (set nvim.g.maplocalleader ",") ; map local leader to ,
-(set nvim.g.mapleader " ") ; map leader to space
+(set nvim.g.mapleader "\\") ; map leader to space
+(u.map :n  :<space>  :<leader>)
+(u.map :x  :<space>  :<leader>)
 
 (set nvim.o.undodir (.. (vim.fn.stdpath "cache") "/vim/undo/") )
 
