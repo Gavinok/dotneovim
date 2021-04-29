@@ -223,6 +223,8 @@
 ;                  (vim.api.nvim_feedkeys "<C-Y>" "n" true)
 ;                  (vim.api.nvim_feedkeys "/" "n" true)))
 
+(u.map :n :<leader>/  ":nohlsearch" {:silent true})
+
 ; using autoload
 (u.map :n :<leader>v  ":call dotvim#ToggleQuickfix()")
 (u.map :n :<leader>o  ":put =repeat(nr2char(10), v:count1)" { :silent true })
