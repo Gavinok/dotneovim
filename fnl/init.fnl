@@ -11,7 +11,7 @@
         msg (or msg? "Elapsed time: %f msecs")]
   (print (string.format msg (/ (- end start) 1000000)))))
 
-(local init-timer (begin-timer))
+; (local init-timer (begin-timer))
 
 (local u    (require :util))
 (local a    (require :aniseed.core))
@@ -293,4 +293,4 @@
 
 (u.noremap :n :<leader>y ":let @+ = expand('%:p')")
 
-(end-timer init-timer "Init loaded in %f msecs.")
+; (end-timer init-timer "Init loaded in %f msecs.")
