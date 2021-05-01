@@ -48,7 +48,6 @@
   :tagcase        :match                  ;; Match case when searching for tags
   ; Whitespace
   :listchars      "tab:→ ,trail:·,nbsp:·" ;; Show white space
-  :list           true
   ; Indentation
   :tabstop        4                       ;; Shorter hard tabs
   :softtabstop    0                       ;; No spaces
@@ -277,7 +276,7 @@
 (u.noremap :n :<leader>sudo (.. ":w !sudo tee > /dev/null " (nvim.eval "expand('%')")))
 (u.noremap :n :<leader>co (..
                             ":!opout "
-                            (vim.api.nvim_eval "expand('%')")))
+                            (nvim.fn.expand "%")))
 
 (u.noremap :n "]a" ":silent! cnext")
 (u.noremap :n "[a" ":silent! cprevious")
