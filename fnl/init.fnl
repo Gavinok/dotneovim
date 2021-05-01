@@ -170,6 +170,7 @@
           {:python "python3"
            :clojure "clojure"
            :racket "racket"
+           :slideshow "slideshow"
            :haskell "runhaskell"
            :sh "sh"
            :bash "bash"
