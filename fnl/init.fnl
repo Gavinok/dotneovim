@@ -33,7 +33,8 @@
 (set nvim.o.undodir (.. (vim.fn.stdpath "cache") "/vim/undo/") )
 
  ;; for some reason (set nvim.o.undofile true) won't work
-(vim.cmd "set undofile")
+(nvim.ex.set :undofile)
+(nvim.ex.set :list)
 
 (a.assoc nvim.o
   :mouse          :a

@@ -16,4 +16,4 @@ paq {'savq/paq-nvim', opt=true}
 -- Bootstrap Fennel
 
 paq {'Olical/aniseed'}
-vim.g['aniseed#env'] = {compile=false}
+vim.g['aniseed#env'] = {compile=true}
