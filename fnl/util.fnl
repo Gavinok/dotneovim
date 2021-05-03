@@ -50,10 +50,17 @@
       (nvim.set_keymap
         mode from to (or opts {})))))
 
-(fn noremap [mode from to opts]
-  "Sets a global mapping with {:noremap true}."
-  (let [opts (a.assoc (or (vim.deepcopy opts) {}) :noremap true)]
-    (map mode from to opts)))
+; (fn noremap [mode from to opts]
+;   "Sets a global mapping with {:noremap true}."
+;   (let [opts (a.assoc (or (vim.deepcopy opts) {}) :noremap true)]
+;     (map mode from to opts)))
+(fn noremap [mode from to opt]
+  "Sets a mapping with {:noremap true}."
+  (if (= opt nil)
+  (nvim.set_keymap mode from to {:noremap true})
+  (nvim.set_keymap mode from to (do
+                                  (tset opt :noremap true)
+                                  opt))))
 
 (fn map* [mode opts binds]
   "Set multiple bindings"
