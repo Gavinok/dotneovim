@@ -140,6 +140,16 @@
       :justinmk/vim-dirvish
       :tommcdo/vim-lion])
 
+;; finally snippets written in lisp (sorta
+(use [:L3MON4D3/LuaSnip]
+     (let [ls (require :luasnip)]
+       (set ls.snippets 
+            {:all
+             [ (ls.s {:trig "trigger"}
+                     [(ls.t ["wow1 text"])
+                      (ls.i 0)])]})))
+
+
 (use [:Gavinok/spaceway.vim]
      "Setup Colorscheme"
      (nvim.ex.colorscheme :spaceway)
