@@ -3,13 +3,13 @@
 ; example 3 https://www.github.com/Javyre/etc/tree/master/nvim%2Ffnl%2Finit.fnl
 ; lua guid https://github.com/nanotee/nvim-lua-guide
 
-(fn begin-timer []
-  (vim.loop.hrtime))
+; (fn begin-timer []
+;   (vim.loop.hrtime))
 
-(fn end-timer [start msg?]
-  (let [end (vim.loop.hrtime)
-        msg (or msg? "Elapsed time: %f msecs")]
-  (print (string.format msg (/ (- end start) 1000000)))))
+; (fn end-timer [start msg?]
+;   (let [end (vim.loop.hrtime)
+;         msg (or msg? "Elapsed time: %f msecs")]
+;   (print (string.format msg (/ (- end start) 1000000)))))
 
 ; (local init-timer (begin-timer))
 
