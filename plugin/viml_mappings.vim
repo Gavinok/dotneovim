@@ -52,3 +52,4 @@ if exists('##CmdLineEnter')
 		autocmd CmdLineLeave : set smartcase
 	augroup END
 endif
+imap <silent><expr> <c-f> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
