@@ -94,6 +94,7 @@
   (augroup (.. "lsp_defer_" serv)
     [[:FileType (table.concat filetypes ",") 
       #(when (= (. *lsp-defer* serv) nil)
+        (nvim.ex.packadd :nvim-lspconfig)
          (when (= *lsp-defer*.-defer-init nil)
            (set *lsp-defer*.-defer-init true)
            (run-hook *lsp-init-hook*))

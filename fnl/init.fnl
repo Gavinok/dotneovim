@@ -188,7 +188,7 @@
 
 ; LSP setup
 (local *lsp-attach-hook* {})
-(use [:neovim/nvim-lspconfig]
+(use [(:neovim/nvim-lspconfig {:opt true})]
 
   (fn on-lsp-attach [client bufnr]
     ;; Mappings.
@@ -238,8 +238,9 @@
     {:on_attach on-lsp-attach
      :cmd ["jdtls"]
      :root_dir #(let [lsp-config (require :lspconfig)]
-                  (or ((lsp-config.u.root_pattern
-                         "gradle.build" ".project" ".git") $1)
+                  (or nil
+                      ; This seems to cause issues so nil is a place holder
+                      ;((lsp-config.u.root_pattern "gradle.build" ".project" ".git") $1)
                       (vim.fn.getcwd)))})
 
   (u.defer-lsp-setup
