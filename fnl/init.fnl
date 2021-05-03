@@ -165,8 +165,8 @@
      ; Viml: let g:dotoo#agenda#files = ['~/Documents/org/*.org']
      (set nvim.g.dotoo#agenda#files ["~/Documents/org/*.org"])
      (nvim.ex.highlight "dotoo_shade_stars ctermfg=NONE guifg='#000000'")
-     (u.noremap :n :<leader>e ":OrgEval")
-     (set nvim.g.org_eval_run_cmd 
+     (u.noremap :n :<leader>e ":OrgEval<CR>")
+     (set nvim.g.org_eval_run_cmd
           {:python "python3"
            :clojure "clojure"
            :racket "racket"
@@ -265,35 +265,38 @@
 ;                  (vim.api.nvim_feedkeys "<C-Y>" "n" true)
 ;                  (vim.api.nvim_feedkeys "/" "n" true)))
 
-(u.map :n :<leader>/  ":nohlsearch" {:silent true})
+(u.noremap :n :<leader>/  ":nohlsearch" {:silent true})
 
 ; using autoload
-(u.map :n :<leader>v  ":call dotvim#ToggleQuickfix()")
-(u.map :n :<leader>o  ":put =repeat(nr2char(10), v:count1)" { :silent true })
-(u.map :n :<leader>O  ":put! =repeat(nr2char(10), v:count1)" {:silent true})
-; (u.map :n :cd  (.. ":cd " (vim.api.nvim_eval "expand('%:h')"))) ; should replace with just entering the keys
+(u.noremap :n :<leader>v  ":call dotvim#ToggleQuickfix()<CR>"        {:silent true})
+(u.noremap :n :<leader>o  ":put =repeat(nr2char(10), v:count1)<CR>"  {:silent true})
+(u.noremap :n :<leader>O  ":put! =repeat(nr2char(10), v:count1)<CR>" {:silent true})
+(u.noremap :n :cd  ":cd <c-r>=expand('%:h')<CR>") ; should replace with just entering the keys
 
 (u.noremap :n :<BS>         "mz[s1z=`z")
 
-; 
-(u.noremap :n :<leader>sudo (.. ":w !sudo tee > /dev/null " (nvim.fn.expand "%")))
-(u.noremap :n :<leader>co (..
-                            ":!opout "
-                            (nvim.fn.expand "%")))
+;; note that you can not use - in the middle of functions for it to work in neovim
+(fn _G.sudosave []
+  (vim.cmd (..
+    ":w !sudo tee > /dev/null "
+    (nvim.fn.expand "%"))))
 
-(u.noremap :n "]a" ":silent! cnext")
-(u.noremap :n "[a" ":silent! cprevious")
-(u.noremap :n "]A" ":silent! lnext")
-(u.noremap :n "[A" ":silent! lprevious")
+(u.noremap :n :<leader>sudo ":lua sudosave()<CR>")
+(u.noremap :n :<leader>co ":!opout %<CR>")
+
+(u.noremap :n "]a" ":silent! cnext<CR>")
+(u.noremap :n "[a" ":silent! cprevious<CR>")
+(u.noremap :n "]A" ":silent! lnext<CR>")
+(u.noremap :n "[A" ":silent! lprevious<CR>")
 
 ;quick buffer navigation
-(u.noremap :n "]b" ":silent! bnext")
-(u.noremap :n "[b" ":silent! bprevious")
+(u.noremap :n "]b" ":silent! bnext<CR>")
+(u.noremap :n "[b" ":silent! bprevious<CR>")
+
 ; jumping between files
-; (u.noremap :n :<leader>b ())
-(u.noremap :n :Q ":Git")
+(u.noremap :n :<leader>b ":b <c-d>")
+(u.noremap :n :Q ":Git<CR>")
 
-
-(u.noremap :n :<leader>y ":let @+ = expand('%:p')")
+(u.noremap :n :<leader>y ":let @+ = expand('%:p')<CR>")
 
 ; (end-timer init-timer "Init loaded in %f msecs.")
