@@ -251,11 +251,17 @@
     :pyls ["python"]
     {:on_attach on-lsp-attach}))
 
+(fn winmap [key]
+  (do (u.noremap :n key (.. "<c-w>" key))
+    (let [tesc "<c-\\><c-n>"]
+      (u.noremap :t key (.. tesc
+                            (.. "<c-w>"
+                                key))))))
 
-(u.map :n  :<c-k>  "<c-w><c-k>")
-(u.map :n  :<c-j>  "<c-w><c-j>")
-(u.map :n  :<c-l>  "<c-w><c-l>")
-(u.map :n  :<c-h>  "<c-w><c-h>")
+(winmap :<c-h>)
+(winmap :<c-j>)
+(winmap :<c-k>)
+(winmap :<c-l>)
 
 ; better defaults
 (u.map :n :Y  "y$")
