@@ -113,11 +113,11 @@
 
   (augroup :lazy_conjure
     [[:FileType "fennel"
-      #(do 
+      #(do
          (nvim.ex.packadd :conjure)
          ((. (require :conjure.mapping) :on-filetype)))]])
 
-  (tset nvim.g 
+  (tset nvim.g
         :conjure#client#fennel#aniseed#aniseed_module_prefix
         "aniseed."))
 
