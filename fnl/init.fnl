@@ -30,6 +30,7 @@
 (u.map :n  :<space>  :<leader>)
 (u.map :x  :<space>  :<leader>)
 
+;; Undo
 (set nvim.o.undodir (.. (vim.fn.stdpath "cache") "/vim/undo/") )
 
  ;; for some reason (set nvim.o.undofile true) won't work
@@ -83,7 +84,8 @@
   :wildmode        "longest:full,full"
   :wildignorecase  true
   :wildignore      "*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache"
-  :virtualedit     :block)
+  :virtualedit     :block
+  :completeopt "menuone,noselect")
 
 
 ; Capital Quick first letter of a word or a regain
