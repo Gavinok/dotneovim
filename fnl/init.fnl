@@ -346,8 +346,6 @@
 ;quick buffer navigation
 (u.noremap :n "]b" ":silent! bnext<CR>")
 (u.noremap :n "[b" ":silent! bprevious<CR>")
-
-; jumping between files
 (u.noremap :n :<leader>b ":b <c-d>")
 
 (u.noremap :n :<leader>y ":let @+ = expand('%:p')<CR>")
