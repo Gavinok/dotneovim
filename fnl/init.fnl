@@ -249,6 +249,7 @@
            :clojure "clojure"
            :racket "racket"
            :slideshow "slideshow"
+           :fennel "fennel"
            :haskell "runhaskell"
            :sh "sh"
            :bash "bash"
