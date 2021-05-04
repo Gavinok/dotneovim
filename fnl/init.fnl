@@ -194,28 +194,26 @@
      (let [ls (require :luasnip)]
        (set ls.snippets 
             {:all ; filetype for each snippet
-             [ (ls.s { :trig "trigger" }
+             [ (ls.s { :trig "trigger"}
                      [(ls.i 1 ["place holder text"])
                       (ls.t ["" "wow1 text" ""])
                       (ls.i 0)])
               (ls.parser.parse_snippet {:trig "Wow! This"}
                                        "Wow! This ${1:Stuff} really ${2:works. ${3:Well, a bit.}}")
-              (ls.s { :trig "tester" :regTrig true }
+              (ls.s { :trig "tester" :regTrig true}
                     [(ls.t ["testing the regex trigger"])
                      (ls.i 0)])]
              :c
-             [ (ls.s { :trig "printf" }
+             [ (ls.s { :trig "printf"}
                      [(ls.t ["printf("]) (ls.i 1 ["value is %d\\n"]) ;TODO if snip contains % then add ,
                       ;(ls.f printf-args [1])
-                      (ls.t [");"]) (ls.i 0)]) ] 
+                      (ls.t [");"]) (ls.i 0)])] 
              :dotoo
-             [ (ls.s { :trig "cbl" }
+             [ (ls.s { :trig "cbl"}
                      [(ls.t ["#+BEGIN_SRC "]) (ls.i 1 ["FileType"])
                       (ls.t ["" ""]) (ls.i 0)
-                      (ls.t ["" "#+END_SRC"])]);TODO if snip contains % then add ,
+                      (ls.t ["" "#+END_SRC"])])]})));TODO if snip contains % then add ,
 
-              ]
-             })))
 
 (use [:Gavinok/spaceway.vim]
      "Setup Colorscheme"
