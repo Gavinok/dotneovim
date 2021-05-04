@@ -230,10 +230,6 @@
            :javascript "node"
            :r "Rscript -"}))
 
-; floating completion
-(use [:ncm2/float-preview.nvim]
-     (set nvim.g.float_preview#docked  0))
-
 ; LSP setup
 (local *lsp-attach-hook* {})
 (use [(:neovim/nvim-lspconfig {:opt true})]
