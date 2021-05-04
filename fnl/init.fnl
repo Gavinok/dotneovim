@@ -177,15 +177,42 @@
       :justinmk/vim-dirvish
       :tommcdo/vim-lion])
 
-;; finally snippets written in lisp (sorta
+(fn printf-args [args]
+  ; (do (print (. (. args 1) 1))
+  (if (= (string.match (. (. args 1) 1) "%%") nil)
+    [""]
+    (let [ls (require :luasnip)]
+      [","])));) ;TODO escape the %
+
+;; finally snippets written in lisp (sorta)
+;; example snippets https://github.com/L3MON4D3/LuaSnip/blob/master/Examples/snippets.lua
+;; this may be a better option https://github.com/norcalli/snippets.nvim
 (use [:L3MON4D3/LuaSnip]
      (let [ls (require :luasnip)]
        (set ls.snippets 
-            {:all
-             [ (ls.s {:trig "trigger"}
-                     [(ls.t ["wow1 text"])
-                      (ls.i 0)])]})))
+            {:all ; filetype for each snippet
+             [ (ls.s { :trig "trigger" }
+                     [(ls.i 1 ["place holder text"])
+                      (ls.t ["" "wow1 text" ""])
+                      (ls.i 0)])
+              (ls.parser.parse_snippet {:trig "Wow! This"}
+                                       "Wow! This ${1:Stuff} really ${2:works. ${3:Well, a bit.}}")
+              (ls.s { :trig "tester" :regTrig true }
+                    [(ls.t ["testing the regex trigger"])
+                     (ls.i 0)])]
+             :c
+             [ (ls.s { :trig "printf" }
+                     [(ls.t ["printf("]) (ls.i 1 ["value is %d\\n"]) ;TODO if snip contains % then add ,
+                      ;(ls.f printf-args [1])
+                      (ls.t [");"]) (ls.i 0)]) ] 
+             :dotoo
+             [ (ls.s { :trig "cbl" }
+                     [(ls.t ["#+BEGIN_SRC "]) (ls.i 1 ["FileType"])
+                      (ls.t ["" ""]) (ls.i 0)
+                      (ls.t ["" "#+END_SRC"])]);TODO if snip contains % then add ,
 
+              ]
+             })))
 
 (use [:Gavinok/spaceway.vim]
      "Setup Colorscheme"
