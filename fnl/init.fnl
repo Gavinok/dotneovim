@@ -204,6 +204,7 @@
 
 (use [:dhruvasagar/vim-dotoo
       :emaniacs/OrgEval.vim]
+     "Setup Vim For Use With Org Files"
      ; set autocmd for orgfiles
      ; should be replaced with fennel
      (vim.cmd
