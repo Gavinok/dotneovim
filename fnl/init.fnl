@@ -109,7 +109,11 @@
   ;else
   (set nvim.o.grepprg "grep -R -n --exclude-dir=.git,.cache"))
 
-; fennel stuff
+;; sexp stuff
+(if (executable? "cargo")
+  (use [(:eraserhd/parinfer-rust {:run "cargo build --release"})]))
+
+;; fennel stuff
 (use [(:Olical/conjure {:opt true})
       :Olical/fennel.vim]
 
