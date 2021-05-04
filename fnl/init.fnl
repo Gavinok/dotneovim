@@ -192,7 +192,7 @@
 ;; this may be a better option https://github.com/norcalli/snippets.nvim
 (use [:L3MON4D3/LuaSnip]
      (let [ls (require :luasnip)]
-       (set ls.snippets 
+       (set ls.snippets
             {:all ; filetype for each snippet
              [ (ls.s { :trig "trigger"}
                      [(ls.i 1 ["place holder text"])
@@ -207,7 +207,7 @@
              [ (ls.s { :trig "printf"}
                      [(ls.t ["printf("]) (ls.i 1 ["value is %d\\n"]) ;TODO if snip contains % then add ,
                       ;(ls.f printf-args [1])
-                      (ls.t [");"]) (ls.i 0)])] 
+                      (ls.t [");"]) (ls.i 0)])]
              :dotoo
              [ (ls.s { :trig "cbl"}
                      [(ls.t ["#+BEGIN_SRC "]) (ls.i 1 ["FileType"])
@@ -330,7 +330,7 @@
     :efm ["sh" "mail" "markdown" "tex"]
     {:on_attach on-lsp-attach
      :root_dir #(let [lsp (require :lspconfig)]
-                     (or 
+                     (or
                        ((lsp.util.root_pattern ".git")
                         $1)
                        (lsp.util.path.dirname $1)))}))
