@@ -237,7 +237,7 @@
 ; LSP setup
 (local *lsp-attach-hook* {})
 (use [(:neovim/nvim-lspconfig {:opt true})]
-
+  "Setup Lsp Support For Different Languages"
   (fn on-lsp-attach [client bufnr]
     ;; Mappings.
     (nvim.buf_set_option 0 "omnifunc" "v:lua.vim.lsp.omnifunc")
