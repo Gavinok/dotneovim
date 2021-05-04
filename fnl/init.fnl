@@ -323,19 +323,27 @@
 
   (u.defer-lsp-setup
     :pyls ["python"]
-    {:on_attach on-lsp-attach}))
+    {:on_attach on-lsp-attach})
 
-(fn winmap [key]
-  (do (u.noremap :n key (.. "<c-w>" key))
-    (let [tesc "<c-\\><c-n>"]
-      (u.noremap :t key (.. tesc
-                            (.. "<c-w>"
-                                key))))))
+  (u.defer-lsp-setup 
+    :efm ["sh" "mail" "markdown" "tex"]
+    {:on_attach on-lsp-attach
+     :root_dir #(let [lsp (require :lspconfig)]
+                     (or 
+                       ((lsp.util.root_pattern ".git")
+                        $1)
+                       (lsp.util.path.dirname $1)))}))
 
-(winmap :<c-h>)
-(winmap :<c-j>)
-(winmap :<c-k>)
-(winmap :<c-l>)
+(let [winmap (fn [key]
+               (let [tesc "<c-\\><c-n>"]
+                 (do (u.noremap :n key (.. "<c-w>" key))
+                   (u.noremap :t key (.. tesc
+                                         (.. "<c-w>"
+                                             key))))))]
+  (winmap :<c-h>)
+  (winmap :<c-j>)
+  (winmap :<c-k>)
+  (winmap :<c-l>))
 
 ; better defaults
 (u.noremap :n :Y  "y$")
