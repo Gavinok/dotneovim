@@ -168,6 +168,8 @@
 (use [(:tpope/vim-fugitive {:opt true })]
      (fn load-fugitive []
       (nvim.ex.packadd :vim-fugitive))
+     ; lazy load vim-fugitive
+     (u.noremap :n :Q ":Git<CR>")
      (vim.defer_fn load-fugitive 1500))
 
 (use [:mhinz/vim-signify
@@ -347,7 +349,6 @@
 
 ; jumping between files
 (u.noremap :n :<leader>b ":b <c-d>")
-(u.noremap :n :Q ":Git<CR>")
 
 (u.noremap :n :<leader>y ":let @+ = expand('%:p')<CR>")
 
