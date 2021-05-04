@@ -311,11 +311,10 @@
     :jdtls ["java"]
     {:on_attach on-lsp-attach
      :cmd ["jdtls"]
-     :root_dir #(let [lsp-config (require :lspconfig)]
-                  (or nil
-                      ; This seems to cause issues so nil is a place holder
-                      ;((lsp-config.u.root_pattern "gradle.build" ".project" ".git") $1)
-                      (vim.fn.getcwd)))})
+     :root_dir #(let [lsp (require :lspconfig)]
+                  (or
+                    ((lsp.util.root_pattern "gradle.build" ".project" ".git") $1)
+                    (lsp.util.path.dirname $1)))})
 
   (u.defer-lsp-setup
     :ccls ["c" "cpp" "objc" "objcpp"]
