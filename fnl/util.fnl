@@ -101,7 +101,7 @@
 
          (let [lsp (. (require :lspconfig) serv)]
            (a.assoc *lsp-defer* serv true)
-           (lsp.setup opts)
+           (lsp.setup (do (tset opts :filetypes filetypes) opts))
            (lsp.manager.try_add)))]]))
 
 {:targ_fns *targ-fns*
