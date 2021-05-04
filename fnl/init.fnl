@@ -172,6 +172,7 @@
      (u.noremap :n :Q ":Git<CR>")
      (vim.defer_fn load-fugitive 1500))
 
+
 (use [:mhinz/vim-signify
       :justinmk/vim-dirvish
       :tommcdo/vim-lion])
@@ -198,6 +199,7 @@
      (nvim.ex.highlight "Conceal     guibg=NONE")
      (nvim.ex.highlight "Terminal    guibg=NONE")
      (nvim.ex.highlight "LineNr      guibg=NONE"))
+
 
 ; (use [:axvr/org.vim]
 ;      (nvim.ex.highlight "link orgHeading2 Normal"))
