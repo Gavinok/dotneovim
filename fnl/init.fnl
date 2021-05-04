@@ -312,14 +312,14 @@
 (winmap :<c-l>)
 
 ; better defaults
-(u.map :n :Y  "y$")
+(u.noremap :n :Y  "y$")
 (u.map :n :<esc> ":pclose" {:silent true})
 
 ; (u.map :c / (if (= (vim.api.nvim_eval "wildmenumode()") 1)
 ;                  (vim.api.nvim_feedkeys "<C-Y>" "n" true)
 ;                  (vim.api.nvim_feedkeys "/" "n" true)))
 
-(u.noremap :n :<leader>/  ":nohlsearch" {:silent true})
+(u.noremap :n :<leader>/  ":nohlsearch<CR>" {:silent true})
 
 ; using autoload
 (u.noremap :n :<leader>v  ":call dotvim#ToggleQuickfix()<CR>"        {:silent true})
