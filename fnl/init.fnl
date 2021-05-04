@@ -31,14 +31,14 @@
 (u.map :x  :<space>  :<leader>)
 
 ;; Undo
-(set nvim.o.undodir (.. (vim.fn.stdpath "cache") "/vim/undo/") )
+(set nvim.o.undodir (.. (vim.fn.stdpath "cache") "/vim/undo/"))
 
  ;; for some reason (set nvim.o.undofile true) won't work
 (nvim.ex.set :undofile)
 (nvim.ex.set :list)
   ; folds
- (vim.cmd ":set foldmethod=syntax")
- (vim.cmd ":set foldlevel=99")
+(vim.cmd ":set foldmethod=syntax")
+(vim.cmd ":set foldlevel=99")
 
 (a.assoc nvim.o
   :mouse          :a
@@ -154,8 +154,7 @@
                               :buffer true
                               :nvim_lsp true
                               :tags true
-                              :spell true
-                              } })))
+                              :spell true}})))
 
 ;; Aniseed compile on file save
 (augroup :aniseed_compile_on_save
@@ -165,7 +164,7 @@
       :tpope/vim-commentary
       :tpope/vim-surround])
 
-(use [(:tpope/vim-fugitive {:opt true })]
+(use [(:tpope/vim-fugitive {:opt true})]
      (fn load-fugitive []
       (nvim.ex.packadd :vim-fugitive))
      ; lazy load vim-fugitive
@@ -359,8 +358,8 @@
 ;; note that you can not use - in the middle of functions for it to work in neovim
 (fn _G.sudosave []
   (vim.cmd (..
-    ":w !sudo tee > /dev/null "
-    (nvim.fn.expand "%"))))
+            ":w !sudo tee > /dev/null "
+            (nvim.fn.expand "%"))))
 
 (u.noremap :n :<leader>sudo ":lua sudosave()<CR>")
 (u.noremap :n :<leader>co ":!opout %<CR>")
