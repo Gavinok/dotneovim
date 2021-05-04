@@ -326,7 +326,7 @@
     :pyls ["python"]
     {:on_attach on-lsp-attach})
 
-  (u.defer-lsp-setup 
+  (u.defer-lsp-setup
     :efm ["sh" "mail" "markdown" "tex"]
     {:on_attach on-lsp-attach
      :root_dir #(let [lsp (require :lspconfig)]
