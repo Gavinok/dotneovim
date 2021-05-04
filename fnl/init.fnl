@@ -122,15 +122,15 @@
       #(do
          (nvim.ex.packadd :conjure)
         (let [opts {:noremap true :silent true :buffer bufnr}]
-        (u.map :o :if :ib {:buffer bufnr})
-        (u.map :o :af :ab {:buffer bufnr})
-        (u.map :o :is "i\"" {:buffer bufnr})
-        (u.map :o :as "a\"" {:buffer bufnr})
-        (u.map :n ")" "])" opts)
-        (u.map :n "(" "[(" opts)
-        (u.map :o ")" "])" {:buffer bufnr})
-        (u.map :o "(" "[(" {:buffer bufnr}))
-         ((. (require :conjure.mapping) :on-filetype)))]])
+         (u.map :o :if :ib {:buffer bufnr})
+         (u.map :o :af :ab {:buffer bufnr})
+         (u.map :o :is "i\"" {:buffer bufnr})
+         (u.map :o :as "a\"" {:buffer bufnr})
+         (u.map :n ")" "])" opts)
+         (u.map :n "(" "[(" opts)
+         (u.map :o ")" "])" {:buffer bufnr})
+         (u.map :o "(" "[(" {:buffer bufnr}))
+        ((. (require :conjure.mapping) :on-filetype)))]])
 
   (tset nvim.g
         :conjure#client#fennel#aniseed#aniseed_module_prefix
