@@ -1,6 +1,3 @@
-" POSIX Commands
-nmap cd :cd <C-R>=expand('%:h')<CR>
-
 " shortcut to change filetype
 nnoremap <leader>ft  :setfiletype<space>
 " shortcut to search help
