@@ -80,9 +80,6 @@
   :inccommand     :split
   :diffopt                                ;; smarter diff
   (.. (or nvim.o.diffopt "") ",indent-heuristic,algorithm:histogram")
-  ; folds
-  :foldmethod      "syntax"
-  :foldlevel       99
   :wildmenu        true                   ;; Autocompletion of commands
   :wildmode        "longest:full,full"
   :wildignorecase  true
