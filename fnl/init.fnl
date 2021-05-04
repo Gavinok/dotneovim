@@ -36,6 +36,9 @@
  ;; for some reason (set nvim.o.undofile true) won't work
 (nvim.ex.set :undofile)
 (nvim.ex.set :list)
+  ; folds
+ (vim.cmd ":set foldmethod=syntax")
+ (vim.cmd ":set foldlevel=99")
 
 (a.assoc nvim.o
   :mouse          :a
