@@ -192,6 +192,13 @@
 ;; this may be a better option https://github.com/norcalli/snippets.nvim
 (use [:L3MON4D3/LuaSnip]
      (vim.cmd "imap <silent><expr> <c-f> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-f>'")
+     (fn append-arg-to-cap [args]
+       (let [captured (. (. (. args 1) :captures) 1)]
+         (if (not (= captured ""))
+           [(..
+              ", "
+              captured)]
+           [])))
      (let [ls (require :luasnip)]
        (set ls.snippets
             {:all ; filetype for each snippet
@@ -205,9 +212,9 @@
                     [(ls.t ["testing the regex trigger"])
                      (ls.i 0)])]
              :c
-             [ (ls.s { :trig "printf"}
-                     [(ls.t ["printf("]) (ls.i 1 ["value is %d\\n"]) ;TODO if snip contains % then add ,
-                      ;(ls.f printf-args [1])
+             [ (ls.s { :trig "printf([%w_]*)" :regTrig true :wordTrig true}
+                     [(ls.t ["printf(\""]) (ls.i 1 ["value is %d\\n"]) (ls.t ["\""]);TODO if snip contains % then add ,
+                      (ls.f append-arg-to-cap [])
                       (ls.t [");"]) (ls.i 0)])]
              :dotoo
              [ (ls.s { :trig "cbl"}
