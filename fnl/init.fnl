@@ -247,11 +247,21 @@
        augroup END")
      ; Viml: let g:dotoo#agenda#files = ['~/Documents/org/*.org']
      (set nvim.g.dotoo#agenda#files ["~/Documents/org/*.org"])
-     (nvim.ex.highlight "dotoo_shade_stars ctermfg=NONE guifg='#000000'")
-     (u.noremap :n :<leader>e ":OrgEval<CR>")
+     (set nvim.g.dotoo_begin_src_languages ["vim" "clojure" "fennel" "lua" "sql"])
+     (nvim.ex.highlight "dotoo_shade_stars ctermfg=NONE guifg=#000000")
+     (vim.cmd ":set conceallevel=2")
+     (augroup :org_settings
+              [[:FileType :dotoo #(let [opts {:buffer bufnr :silent true}]
+                                    (set nvim.b.omnifunc "dotoo#autocompletion#omni")
+                                    (u.noremap :n :<leader>e ":OrgEval<CR>" opts)
+                                    (u.noremap :n :<leader>E ":call org_eval#OrgToggleEdit()<CR>" opts)
+                                    (nvim.ex.setlocal :expandtab)
+                                    (nvim.ex.setlocal :nowrap)
+                                    (nvim.ex.setlocal "shiftwidth=2")
+                                    (nvim.ex.setlocal "softtabstop=2"))]])
      (set nvim.g.org_eval_run_cmd
           {:python "python3"
-           :clojure "clojure"
+           :clojure "joker"
            :racket "racket"
            :slideshow "slideshow"
            :fennel "fennel"
