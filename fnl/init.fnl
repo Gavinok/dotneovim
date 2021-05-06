@@ -191,6 +191,7 @@
 ;; example snippets https://github.com/L3MON4D3/LuaSnip/blob/master/Examples/snippets.lua
 ;; this may be a better option https://github.com/norcalli/snippets.nvim
 (use [:L3MON4D3/LuaSnip]
+     (vim.cmd "imap <silent><expr> <c-f> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-f>'")
      (let [ls (require :luasnip)]
        (set ls.snippets
             {:all ; filetype for each snippet
