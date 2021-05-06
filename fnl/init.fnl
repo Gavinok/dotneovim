@@ -9,15 +9,14 @@
 ; (fn end-timer [start msg?]
 ;   (let [end (vim.loop.hrtime)
 ;         msg (or msg? "Elapsed time: %f msecs")]
-;   (print (string.format msg (/ (- end start) 1000000)))))
+;    (print (string.format msg (/ (- end start) 1000000)))))
 
 ; (local init-timer (begin-timer))
-
 (local u    (require :util))
 (local a    (require :aniseed.core))
 ;https://github.com/norcalli/nvim.lua
 (local nvim (require :aniseed.nvim))
-(local str  (require :aniseed.string))
+; (local str  (require :aniseed.string))
 (local paq  (require :paq-nvim))
 
 (require-macros :macros)
