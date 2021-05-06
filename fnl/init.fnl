@@ -180,13 +180,6 @@
       :justinmk/vim-dirvish
       :tommcdo/vim-lion])
 
-(fn printf-args [args]
-  ; (do (print (. (. args 1) 1))
-  (if (= (string.match (. (. args 1) 1) "%%") nil)
-    [""]
-    (let [ls (require :luasnip)]
-      [","])));) ;TODO escape the %
-
 ;; finally snippets written in lisp (sorta)
 ;; example snippets https://github.com/L3MON4D3/LuaSnip/blob/master/Examples/snippets.lua
 ;; this may be a better option https://github.com/norcalli/snippets.nvim
