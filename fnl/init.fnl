@@ -111,6 +111,22 @@
 ;; sexp stuff
 (if (executable? "cargo")
   (use [(:eraserhd/parinfer-rust {:run "cargo build --release"})]))
+; lisp settings
+(let [filetypes [ :fennel :clojure :racket :scheme :lisp ] ]
+  (augroup :lisp_settings
+           [[:FileType (table.concat filetypes ",")
+             #(let [nopts {:noremap true :silent true :buffer bufnr}
+                    buf {:buffer bufnr}]
+                (map* :o {:buffer bufnr}
+                      {:if :ib 
+                       ")" "])" 
+                       :af :ab  
+                       :is "i\""
+                       :as "a\""
+                       "(" "[("}) 
+                (map* :n nopts
+                      {")" "])"
+                       "(" "[("}))]]))
 
 ;; fennel stuff
 (use [(:Olical/conjure {:opt true})
