@@ -78,7 +78,7 @@
 ;; Hooks
 
 (fn run-hook [hook ...]
-  (a.pr hook)
+  ; (a.pr hook) not sure what the point of this is
   (each [fun _ (pairs hook)]
     (fun ...)))
 
