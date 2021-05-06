@@ -74,7 +74,6 @@
   :splitbelow     true                    ;; open below instead of above
   :splitright     true                    ;; open right instead of left
   ;
-  :termguicolors  true
   :clipboard      :unnamedplus            ;; xclip support
   :fillchars      "fold: ,diff: "
   :inccommand     :split
@@ -218,6 +217,7 @@
 
 (use [:Gavinok/spaceway.vim]
      "Setup Colorscheme"
+     (set nvim.o.termguicolors true)
      (nvim.ex.colorscheme :spaceway)
      (nvim.ex.highlight "Normal ctermbg=NONE")
      (nvim.ex.highlight "Conceal ctermbg=NONE")
