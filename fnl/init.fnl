@@ -271,38 +271,58 @@
            :apl "apl -s"
            :javascript "node"
            :r "Rscript -"}))
+;LSP setup
 
-; LSP setup
+
+
+
+; *hl-LspDiagnosticsUnderlineError*
+; *hl-LspDiagnosticsUnderlineWarning*
+; *hl-LspDiagnosticsUnderlineInformation*
 (local *lsp-attach-hook* {})
 (use [(:neovim/nvim-lspconfig {:opt true})]
-  "Setup Lsp Support For Different Languages"
-  (fn on-lsp-attach [client bufnr]
-    ;; Mappings.
-    (nvim.buf_set_option 0 "omnifunc" "v:lua.vim.lsp.omnifunc")
-    (local opts {:noremap true :silent true :buffer bufnr})
-    (map* :n opts
-      {:gD    #(vim.lsp.buf.declaration)
-       :gd    #(vim.lsp.buf.definition)
-       :gR    #(vim.lsp.buf.references)
-       :K     #(vim.lsp.buf.hover)
-       :gi    #(vim.lsp.buf.implementation)
-       :gs    #(vim.lsp.buf.signature_help)
-       "[d"   #(vim.lsp.diagnostic.goto_prev)
-       "]d"   #(vim.lsp.diagnostic.goto_next)
-       :<LocalLeader>wa #(vim.lsp.buf.add_workspace_folder)
-       :<LocalLeader>wr #(vim.lsp.buf.remove_workspace_folder)
-       :<LocalLeader>wl #(a.pr (vim.lsp.buf.list_workspace_folders))
-       :<LocalLeader>D  #(vim.lsp.buf.type_definition)
-       :<LocalLeader>lr #(vim.lsp.buf.rename)
-       :<LocalLeader>la #(vim.lsp.buf.code_action)
-       :<LocalLeader>le #(vim.lsp.diagnostic.show_line_diagnostics)
-       :<LocalLeader>lq #(vim.lsp.diagnostic.set_loclist)})
+     "Setup Lsp Support For Different Languages"
+     (fn on-lsp-attach [client bufnr]
+       ;; Mappings.
+       ; (nvim.buf_set_option 0 "omnifunc" "v:lua.vim.lsp.omnifunc")
+       (let [errr "#EB4917"
+             warn "#EBA217"
+             info "#17D6EB"
+             hint "#17EB7A"
+             ext  " gui=undercurl\n"]
+         (set vim.lsp.handlers.textDocument/publishDiagnostics
+              (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics {; Disable virtual_text
+                                                                       :virtual_text false
+                                                                       :signs false}))
+         (vim.cmd (..
+                    "highlight LspDiagnosticsUnderlineError       guifg=#000000 guibg=" errr ext
+                    "highlight LspDiagnosticsUnderlineWarning     guifg=#000000 guibg=" warn ext
+                    "highlight LspDiagnosticsUnderlineInformation guifg=#000000 guibg=" info ext
+                    "highlight LspDiagnosticsUnderlineHint        guifg=#000000 guibg=" hint ext)))
+       (local opts {:noremap true :silent true :buffer bufnr})
+       (map* :n opts
+             {:gD              #(vim.lsp.buf.declaration)
+              :gd              #(vim.lsp.buf.definition)
+              :gR              #(vim.lsp.buf.references)
+              :K               #(vim.lsp.buf.hover)
+              :gi              #(vim.lsp.buf.implementation)
+              :gs              #(vim.lsp.buf.signature_help)
+              "[d"             #(vim.lsp.diagnostic.goto_prev)
+              "]d"             #(vim.lsp.diagnostic.goto_next)
+              :<Leader>V       #(vim.lsp.diagnostic.set_loclist)
+              :<LocalLeader>D  #(vim.lsp.buf.type_definition)
+              :<LocalLeader>wa #(vim.lsp.buf.add_workspace_folder)
+              :<LocalLeader>wr #(vim.lsp.buf.remove_workspace_folder)
+              :<LocalLeader>wl #(a.pr (vim.lsp.buf.list_workspace_folders))
+              :<LocalLeader>lr #(vim.lsp.buf.rename)
+              :<LocalLeader>la #(vim.lsp.buf.code_action)
+              :<LocalLeader>le #(vim.lsp.diagnostic.show_line_diagnostics)})
 
     ;; Set some keybinds conditional on server capabilities
-    (if client.resolved_capabilities.document_formatting
-      (u.map :n :<LocalLeader>gq #(vim.lsp.buf.formatting) opts))
-    (if client.resolved_capabilities.document_range_formatting
-      (u.map :v :<LocalLeader>gq #(vim.lsp.buf.range_formatting) opts))
+      (if client.resolved_capabilities.document_formatting
+        (u.map :n :<Leader>gq #(vim.lsp.buf.formatting) opts))
+      (if client.resolved_capabilities.document_range_formatting
+        (u.map :v :<Leader>gq #(vim.lsp.buf.range_formatting) opts))
 
     ;; Set autocommands conditional on server_capabilities
     (if client.resolved_capabilities.document_highlight
