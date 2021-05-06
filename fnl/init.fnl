@@ -390,8 +390,9 @@
 
 (u.noremap :n "<leader>/"  ":nohlsearch<CR>" {:silent true})
 
-; using autoload
+;; Toggle Quickfix
 (u.noremap :n :<leader>v  ":call dotvim#ToggleQuickfix()<CR>"        {:silent true})
+;; Insert Blank Lines
 (u.noremap :n :<leader>o  ":put =repeat(nr2char(10), v:count1)<CR>"  {:silent true})
 (u.noremap :n :<leader>O  ":put! =repeat(nr2char(10), v:count1)<CR>" {:silent true})
 (u.noremap :n :cd  ":cd <c-r>=expand('%:h')<CR>") ; should replace with just entering the keys
