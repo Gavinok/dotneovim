@@ -41,50 +41,49 @@
 (vim.cmd ":set foldlevel=99")
 
 (a.assoc nvim.o
-  :mouse          :a
-  :title          true                    ;; Update window title
-  :hidden         true                    ;; Allow to leave buffer without saving
-  :showcmd        true                    ;; Show keys pressed in normal
-  :lazyredraw     true
-  :shortmess      :aAtcT                  ;; Get rid of annoying messagesc
-  ; Tags
-  :tags           ".tags,tags"            ;; Make tagefiles hidden
-  :tagcase        :match                  ;; Match case when searching for tags
-  ; Whitespace
-  :listchars      "tab:→ ,trail:·,nbsp:·" ;; Show white space
-  ; Indentation
-  :tabstop        4                       ;; Shorter hard tabs
-  :softtabstop    0                       ;; No spaces
-  :smarttab       true
-  :conceallevel   2
-  :shiftwidth     4                       ;; Shorter shiftwidth
-  :autoindent     true                    ;; Auto indent newline
-  ; Searching
-  :ignorecase     true
-  :smartcase      true
-  :incsearch      true                    ;; search while typing
-  :hlsearch       true                    ;; highlight search
-  ;
-  :wildmenu       true                    ;; Autocompletion of commands
-  :wildmode       "longest:full,full"
-  :wildignorecase true
-  ;
-  :gdefault       true                    ;; global substitution by default (no need for /g flag)
-  ; splits
-  :splitbelow     true                    ;; open below instead of above
-  :splitright     true                    ;; open right instead of left
-  ;
-  :clipboard      :unnamedplus            ;; xclip support
-  :fillchars      "fold: ,diff: "
-  :inccommand     :split
-  :diffopt                                ;; smarter diff
-  (.. (or nvim.o.diffopt "") ",indent-heuristic,algorithm:histogram")
-  :wildmenu        true                   ;; Autocompletion of commands
-  :wildmode        "longest:full,full"
-  :wildignorecase  true
-  :wildignore      "*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache"
-  :virtualedit     :block
-  :completeopt "menuone,noselect")
+         :mouse          :a
+         :title          true                    ;; Update window title
+         :hidden         true                    ;; Allow to leave buffer without saving
+         :showcmd        true                    ;; Show keys pressed in normal
+         :lazyredraw     true
+         :shortmess      :aAtcT                  ;; Get rid of annoying messagesc
+         ; Tags
+         :tags           ".tags,tags"            ;; Make tagefiles hidden
+         :tagcase        :match                  ;; Match case when searching for tags
+         ; Whitespace
+         :listchars      "tab:→ ,trail:·,nbsp:·" ;; Show white space
+         ; Indentation
+         :tabstop        4                       ;; Shorter hard tabs
+         :softtabstop    0                       ;; No spaces
+         :smarttab       true
+         :shiftwidth     4                       ;; Shorter shiftwidth
+         :autoindent     true                    ;; Auto indent newline
+         ; Searching
+         :ignorecase     true
+         :smartcase      true
+         :incsearch      true                    ;; search while typing
+         :hlsearch       true                    ;; highlight search
+         ;
+         :wildmenu       true                    ;; Autocompletion of commands
+         :wildmode       "longest:full,full"
+         :wildignorecase true
+         ;
+         ; splits
+         :splitbelow     true                    ;; open below instead of above
+         :splitright     true                    ;; open right instead of left
+         ;
+         :clipboard      :unnamedplus            ;; xclip support
+         :fillchars      "fold: ,diff: "
+         ; substitution
+         :inccommand     :split
+         :gdefault       true                    ;; global substitution by default (no need for /g flag)
+         :diffopt                                ;; smarter diff
+         (.. (or nvim.o.diffopt "") ",indent-heuristic,algorithm:histogram")
+         :wildmenu        true                   ;; Autocompletion of commands
+         :wildignorecase  true
+         :wildmode        "longest:full,full"
+         :wildignore      "*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache"
+         :virtualedit     :block)
 
 
 ; Capital Quick first letter of a word or a regain
