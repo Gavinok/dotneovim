@@ -140,28 +140,27 @@
         "aniseed."))
 
 ; (use [(:nvim-treesitter/nvim-treesitter {:opt true :run (fn [] (nvim.ex.TSUpdate))})])
-
-(use [:hrsh7th/nvim-compe]
-     (let [compe (require :compe)]
-       (compe.setup {
-                     :enabled  true
-                     :autocomplete  true
-                     :debug  false
-                     :min_length  1
-                     :preselect  "enable"
-                     :throttle_time  80
-                     :source_timeout  200
-                     :incomplete_delay  400
-                     :max_abbr_width  100
-                     :max_kind_width  100
-                     :max_menu_width  100
-                     :documentation  true
-                     :source {
-                              :path true
-                              :buffer true
-                              :nvim_lsp true
-                              :tags true
-                              :spell true}})))
+(use [:nvim-lua/completion-nvim]
+     "Mucomplete Like Completion With Better LSP Support"
+     (set nvim.o.completeopt "menuone,noselect") ; Only select when told
+     (set nvim.g.completion_auto_change_source 1)
+     (set nvim.g.completion_matching_smart_case  1)
+     (set nvim.g.completion_trigger_on_delete 1)
+     (set nvim.g.completion_chain_complete_list { :default [ {:complete_items ["path" "lsp"]}
+                                                            ;{:mode "omni"}
+                                                            {:mode "<c-n>"} ]
+                                                  :mail [ {:complete_items ["path"]}
+                                                         {:mode "spel"}]
+                                                  :vim [ {:complete_items ["path"]}
+                                                         {:mode "cmd"}]
+                                                  :dotoo [ {:complete_items ["path"]}
+                                                           {:mode "omni" :triggered_only ["."]}
+                                                           {:mode "spel"}
+                                                           {:mode "<c-n>"}]})
+     (vim.cmd 
+       "imap <tab> <Plug>(completion_smart_tab)
+       imap <s-tab> <Plug>(completion_smart_s_tab)
+       autocmd BufEnter * lua require'completion'.on_attach()"))
 
 ;; Aniseed compile on file save
 (augroup :aniseed_compile_on_save
