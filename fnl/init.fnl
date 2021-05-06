@@ -325,19 +325,20 @@
         (u.map :v :<Leader>gq #(vim.lsp.buf.range_formatting) opts))
 
     ;; Set autocommands conditional on server_capabilities
-    (if client.resolved_capabilities.document_highlight
-      (vim.cmd
-        "hi def link LspReferenceText CursorLine
-        hi def link LspReferenceWrite CursorLine
-        hi def link LspReferenceRead CursorLine
+      (if client.resolved_capabilities.document_highlight
+        (vim.cmd
+          "
+          hi def link LspReferenceText CursorLine
+          hi def link LspReferenceWrite CursorLine
+          hi def link LspReferenceRead CursorLine
 
-        augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END"))
+          augroup lsp_document_highlight
+          autocmd! * <buffer>
+          autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+          autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+          augroup END"))
 
-    (u.run-hook *lsp-attach-hook* client bufnr))
+      (u.run-hook *lsp-attach-hook* client bufnr))
 
   (u.defer-lsp-setup
     :jdtls ["java"]
@@ -357,13 +358,16 @@
     {:on_attach on-lsp-attach})
 
   (u.defer-lsp-setup
-    :efm ["sh" "mail" "markdown" "tex"]
+    :efm ["clojure" "fennel" "sh" "mail" "markdown" "tex"]
     {:on_attach on-lsp-attach
      :root_dir #(let [lsp (require :lspconfig)]
-                     (or
-                       ((lsp.util.root_pattern ".git")
-                        $1)
-                       (lsp.util.path.dirname $1)))}))
+                  (or
+                    ((lsp.util.root_pattern ".git")
+                     $1)
+                    (lsp.util.path.dirname $1)))})
+  (u.defer-lsp-setup
+    :racket_langserver ["racket" "scheme"]
+    {:on_attach on-lsp-attach}))
 
 (let [winmap (fn [key]
                (let [tesc "<c-\\><c-n>"]
