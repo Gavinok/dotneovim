@@ -388,7 +388,7 @@
 ;                  (vim.api.nvim_feedkeys "<C-Y>" "n" true)
 ;                  (vim.api.nvim_feedkeys "/" "n" true)))
 
-(u.noremap :n :<leader>/  ":nohlsearch<CR>" {:silent true})
+(u.noremap :n "<leader>/"  ":nohlsearch<CR>" {:silent true})
 
 ; using autoload
 (u.noremap :n :<leader>v  ":call dotvim#ToggleQuickfix()<CR>"        {:silent true})
