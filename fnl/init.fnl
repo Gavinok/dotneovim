@@ -232,10 +232,6 @@
      (nvim.ex.highlight "Terminal    guibg=NONE")
      (nvim.ex.highlight "LineNr      guibg=NONE"))
 
-
-; (use [:axvr/org.vim]
-;      (nvim.ex.highlight "link orgHeading2 Normal"))
-
 (use [:dhruvasagar/vim-dotoo
       :emaniacs/OrgEval.vim]
      "Setup Vim For Use With Org Files"
