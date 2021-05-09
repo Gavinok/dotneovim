@@ -125,6 +125,16 @@
                 (map* :n nopts
                       {")" "])"
                        "(" "[("}))]]))
+(use [:axvr/zepl.vim]
+     (local zepl-binds {:clojure    "joker --no-readline"
+                        :apl        "apl"
+                        :sh         "dash"
+                        :python     "python"
+                        :scheme     "racket"
+                        :racket     "racket"
+                        :fennel     "fennel"
+                        :math       "qalc"
+                        :javascript "node"}))
 
 ;; fennel stuff
 (use [(:Olical/conjure {:opt true})
