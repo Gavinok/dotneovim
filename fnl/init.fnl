@@ -14,6 +14,8 @@
 ; (local init-timer (begin-timer))
 (local u    (require :util))
 (local a    (require :aniseed.core))
+(local print a.println)
+
 ;https://github.com/norcalli/nvim.lua
 (local nvim (require :aniseed.nvim))
 ; (local str  (require :aniseed.string))
