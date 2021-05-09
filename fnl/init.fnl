@@ -109,11 +109,13 @@
   (set nvim.o.grepprg "grep -R -n --exclude-dir=.git,.cache"))
 
 (let [filetypes [ :fennel :clojure :racket :scheme :lisp ] ]
+  "lisp settings"
   (augroup :lisp_settings
            [[:FileType (table.concat filetypes ",")
              #(let [nopts {:noremap true :silent true :buffer bufnr}
                     buf {:buffer bufnr}]
-                (map* :o {:buffer bufnr}
+                (nvim.ex.setlocal :expandtab)
+                (map* :o buf
                       {:if :ib 
                        ")" "])" 
                        :af :ab  
