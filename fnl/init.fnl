@@ -424,12 +424,10 @@
 (u.noremap :n :<BS>         "mz[s1z=`z")
 
 ;; note that you can not use - in the middle of functions for it to work in neovim
-(fn _G.sudosave []
-  (vim.cmd (..
-            ":w !sudo tee > /dev/null "
-            (nvim.fn.expand "%"))))
+(u.map :n :<leader>sudo #(vim.cmd (..
+                                     ":w !sudo tee > /dev/null "
+                                     (nvim.fn.expand "%"))) {:silent true})
 
-(u.noremap :n :<leader>sudo ":lua sudosave()<CR>")
 (u.noremap :n :<leader>co ":!opout %<CR>")
 
 (u.noremap :n "]a" ":silent! cnext<CR>")
