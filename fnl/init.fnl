@@ -137,16 +137,20 @@
                         :javascript "node"}))
 
 ;; fennel stuff
-(use [(:Olical/conjure {:opt true})
-      :Olical/fennel.vim]
-  (augroup :lazy_conjure
-    [[:FileType "fennel"
-      #(do
-         (nvim.ex.packadd :conjure)
-        ((. (require :conjure.mapping) :on-filetype)))]])
-  (tset nvim.g
-        :conjure#client#fennel#aniseed#aniseed_module_prefix
-        "aniseed."))
+(use [(:Olical/conjure {:opt true})]
+     "Set Up Neovim For Fennel Development"
+     (augroup :lazy_conjure
+              [[:FileType "fennel"
+                #(do
+                   ;; evaluate the current line of fennel
+                   (u.map :n :<leader>j #(let [line (nvim.fn.getline ".")
+                                               eval (require :aniseed.eval)]
+                                           (eval.str line)))
+                   (nvim.ex.packadd :conjure)
+                   ((. (require :conjure.mapping) :on-filetype)))]])
+     (tset nvim.g
+           :conjure#client#fennel#aniseed#aniseed_module_prefix
+           "aniseed."))
 
 ; (use [(:nvim-treesitter/nvim-treesitter {:opt true :run (fn [] (nvim.ex.TSUpdate))})])
 (use [:nvim-lua/completion-nvim]
