@@ -108,10 +108,6 @@
   ;else
   (set nvim.o.grepprg "grep -R -n --exclude-dir=.git,.cache"))
 
-;; sexp stuff
-; (if (executable? "cargo")
-;   (use [(:eraserhd/parinfer-rust {:run "cargo build --release"})]))
-; lisp settings
 (let [filetypes [ :fennel :clojure :racket :scheme :lisp ] ]
   (augroup :lisp_settings
            [[:FileType (table.concat filetypes ",")
