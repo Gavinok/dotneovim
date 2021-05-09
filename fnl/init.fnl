@@ -280,6 +280,7 @@
      (set nvim.g.org_eval_run_cmd
           {:python "python3"
            :clojure "joker"
+           :lisp "janet"
            :racket "racket"
            :slideshow "slideshow"
            :fennel "fennel"
