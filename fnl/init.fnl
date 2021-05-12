@@ -373,7 +373,8 @@
 
   (u.defer-lsp-setup
     :ccls ["c" "cpp" "objc" "objcpp"]
-    {:on_attach on-lsp-attach})
+    {:init_options { :cache { "directory" "/tmp/ccls-cache" } }
+     :on_attach on-lsp-attach})
 
   (u.defer-lsp-setup
     :pyls ["python"]
