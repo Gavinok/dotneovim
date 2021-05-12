@@ -78,6 +78,5 @@ hi link orgHeading2 Normal
 let g:org_time='%H:%M'
 let g:org_date='%Y-%m-%d %a'
 let g:org_date_format=g:org_date.' '.g:org_time
-map <silent>gC :call CreateCapture('split')<CR>
-command! -nargs=0 NGrep grep! ".*" ~/.local/Dropbox/Documents/org/**/*.org
+" map <silent>gC :call CreateCapture('split')<CR>
 " 2}}} "Orgmode
