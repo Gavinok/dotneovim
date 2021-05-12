@@ -9,10 +9,10 @@ call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options
 \ }))
 
 call asyncomplete#register_source(asyncomplete#sources#nextword#get_source_options({
-            \   'name': 'nextword',
-            \   'allowlist': ['mail', 'markdown', 'groff', 'troff', 'nroff', 'org'],
-            \   'args': ['-n', '10000'],
-            \   'completor': function('asyncomplete#sources#nextword#completor')
-            \   }))
+			\   'name': 'nextword',
+			\   'allowlist': ['mail', 'markdown', 'org', 'gitcommit', 'groff', 'nroff', 'troff'],
+			\   'args': ['-n', '10000'],
+			\   'completor': function('asyncomplete#sources#nextword#completor')
+			\   }))
 
 call asyncomplete#register_source(asyncomplete#sources#lsp#get_source_options({}))
