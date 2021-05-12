@@ -273,6 +273,7 @@
                                     (set nvim.b.omnifunc "dotoo#autocompletion#omni")
                                     (u.noremap :n :<leader>e ":OrgEval<CR>" opts)
                                     (u.noremap :n :<leader>E ":call org_eval#OrgToggleEdit()<CR>" opts)
+                                    (u.map     :n :cid       ":call ChangeDate()" opts)
                                     (nvim.ex.setlocal :spell)
                                     (nvim.ex.setlocal :expandtab)
                                     (nvim.ex.setlocal :nowrap)

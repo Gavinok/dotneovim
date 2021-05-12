@@ -55,6 +55,28 @@ let g:dotoo_headline_highlight_colors = [
 let g:dotoo#agenda#warning_days = '30d'
 let g:dotoo#agenda_view#agenda#start_of = 'today'
 hi dotoo_shade_stars ctermfg=NONE guifg='#000000'
+" Requires the program date to be installed
+function! ChangeDate() abort
+  if !executable('date')
+    echoerr 'need date'
+  endif
+
+  if !exists('g:env')
+    let g:env = toupper(substitute(system('uname'), '\n', '', ''))
+    if !g:env =~ 'LINUX' | echoerr 'sorry but ' . g:env . ' is not supported' | endif
+  endif
+
+  let newdate = input('Enter Date: ')
+  if newdate == '' | return -1 | endif
+
+  let newdate = system('date -d "' . newdate . '" +"' . g:dotoo#time#datetime_format . '"')
+
+  if v:shell_error | echoerr newdate . ' is not a valid date' | endif
+
+  let newdate = substitute(newdate, '\n', '', '')
+  exec 'normal! ci>' . newdate
+endfunction
+
 hi link orgHeading2 Normal
 let g:org_time='%H:%M'
 let g:org_date='%Y-%m-%d %a'
