@@ -24,7 +24,7 @@ function! CreateCapture(window, ...)
 		exec a:window . ' ' . g:org_refile
 		exec '$read ' . globpath(&rtp, 'extra/org/templatenofile.org')
 	endif
-	call feedkeys("i\<Plug>(minisnip)", 'i')
+	" call feedkeys("i\<Plug>(minisnip)", 'i')
 endfunction
 
 
