@@ -126,15 +126,16 @@
                       {")" "])"
                        "(" "[("}))]]))
 (use [:axvr/zepl.vim]
-     (local zepl-binds {:clojure    "joker --no-readline"
-                        :apl        "apl"
-                        :sh         "dash"
-                        :python     "python"
-                        :scheme     "racket"
-                        :racket     "racket"
-                        :fennel     "fennel"
-                        :math       "qalc"
-                        :javascript "node"}))
+     (set nvim.g.repl_config  {:clojure    { :cmd "joker --no-readline" }
+                               :apl        { :cmd "apl" }
+                               :sh         { :cmd "dash" }
+                               :python     { :cmd "python" }
+                               :scheme     { :cmd "racket" }
+                               :racket     { :cmd "racket" }
+                               :fennel     { :cmd "fennel" }
+                               :math       { :cmd "qalc" }
+                               :javascript { :cmd "node" } }))
+
 
 ;; fennel stuff
 (use [(:Olical/conjure {:opt true})]
