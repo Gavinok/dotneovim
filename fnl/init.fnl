@@ -284,6 +284,7 @@
            :clojure "joker"
            :lisp "janet"
            :racket "racket"
+           :scheme "racket"
            :slideshow "slideshow"
            :fennel "fennel"
            :haskell "runhaskell"
