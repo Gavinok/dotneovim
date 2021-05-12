@@ -263,10 +263,6 @@
      "Setup Vim For Use With Org Files"
      ; set autocmd for orgfiles
      ; should be replaced with fennel
-     (vim.cmd
-       "augroup org_is_dotoo
-       autocmd! BufRead,BufNewFile *.org  setlocal filetype=dotoo
-       augroup END")
      ; Viml: let g:dotoo#agenda#files = ['~/Documents/org/*.org']
      (set nvim.g.dotoo#agenda#files ["~/Documents/org/*.org"])
      (set nvim.g.dotoo#agenda#warning_days  "30d")
