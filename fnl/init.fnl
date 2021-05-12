@@ -332,13 +332,13 @@
               "[d"             #(vim.lsp.diagnostic.goto_prev)
               "]d"             #(vim.lsp.diagnostic.goto_next)
               :<Leader>V       #(vim.lsp.diagnostic.set_loclist)
-              :<LocalLeader>D  #(vim.lsp.buf.type_definition)
-              :<LocalLeader>wa #(vim.lsp.buf.add_workspace_folder)
-              :<LocalLeader>wr #(vim.lsp.buf.remove_workspace_folder)
-              :<LocalLeader>wl #(a.pr (vim.lsp.buf.list_workspace_folders))
-              :<LocalLeader>lr #(vim.lsp.buf.rename)
-              :<LocalLeader>la #(vim.lsp.buf.code_action)
-              :<LocalLeader>le #(vim.lsp.diagnostic.show_line_diagnostics)})
+              :<Leader>D       #(vim.lsp.buf.type_definition)
+              :<Leader>wa      #(vim.lsp.buf.add_workspace_folder)
+              :<Leader>wr      #(vim.lsp.buf.remove_workspace_folder)
+              :<Leader>wl      #(a.pr (vim.lsp.buf.list_workspace_folders))
+              :<Leader>lr      #(vim.lsp.buf.rename)
+              :<Leader>la      #(vim.lsp.buf.code_action)
+              :<Leader>le      #(vim.lsp.diagnostic.show_line_diagnostics)})
 
     ;; Set some keybinds conditional on server capabilities
       (if client.resolved_capabilities.document_formatting
