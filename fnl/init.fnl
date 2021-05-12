@@ -196,10 +196,12 @@
 
 (use [(:tpope/vim-fugitive {:opt true})]
      (fn load-fugitive []
-      (nvim.ex.packadd :vim-fugitive))
-     ; lazy load vim-fugitive
+       "lazy load vim-fugitive"
+       (nvim.ex.packadd :vim-fugitive))
+     (vim.defer_fn load-fugitive 1500)
      (u.noremap :n :Q ":Git<CR>")
-     (vim.defer_fn load-fugitive 1500))
+     (vim.cmd
+       "command! -bang -nargs=? -range=-1 Git packadd vim-fugitive | Git"))
 
 
 (use [:mhinz/vim-signify
