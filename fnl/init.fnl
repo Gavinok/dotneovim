@@ -304,20 +304,12 @@
            :apl "apl -s"
            :javascript "node"
            :r "Rscript -"}))
-;LSP setup
 
-
-
-
-; *hl-LspDiagnosticsUnderlineError*
-; *hl-LspDiagnosticsUnderlineWarning*
-; *hl-LspDiagnosticsUnderlineInformation*
 (local *lsp-attach-hook* {})
 (use [(:neovim/nvim-lspconfig {:opt true})]
      "Setup Lsp Support For Different Languages"
      (fn on-lsp-attach [client bufnr]
-       ;; Mappings.
-       ; (nvim.buf_set_option 0 "omnifunc" "v:lua.vim.lsp.omnifunc")
+       ;; customize diagnostics
        (let [errr "#EB4917"
              warn "#EBA217"
              info "#17D6EB"
