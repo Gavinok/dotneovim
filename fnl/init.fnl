@@ -391,7 +391,7 @@
     {:on_attach on-lsp-attach})
 
   (u.defer-lsp-setup
-    :efm ["clojure" "fennel" "sh" "mail" "markdown" "tex"]
+    :efm [:clojure :fennel :sh :mail :gitcommit :org :markdown :tex]
     {:on_attach on-lsp-attach
      :root_dir #(let [lsp (require :lspconfig)]
                   (or
