@@ -406,10 +406,6 @@
 (u.noremap :n :Y  "y$")
 (u.map :n :<esc> ":pclose" {:silent true})
 
-; (u.map :c / (if (= (vim.api.nvim_eval "wildmenumode()") 1)
-;                  (vim.api.nvim_feedkeys "<C-Y>" "n" true)
-;                  (vim.api.nvim_feedkeys "/" "n" true)))
-
 (u.noremap :n "<leader>/"  ":nohlsearch<CR>" {:silent true})
 
 ;; Toggle Quickfix
