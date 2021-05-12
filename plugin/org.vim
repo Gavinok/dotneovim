@@ -27,11 +27,6 @@ function! CreateCapture(window, ...)
 	call feedkeys("i\<Plug>(minisnip)", 'i')
 endfunction
 
-function! W3m(url)
-	let newurl = substitute(a:url, 'https\?:\/\/', '', 'g')
-	call dotvim#TermCmd("w3m '" . newurl . "'")
-endfunction
-nmap gX :call W3m('<c-r>=expand('<cfile>')<CR>')<CR>
 
 let g:dotoo#agenda#files = ['~/Documents/org/*.org']
 
