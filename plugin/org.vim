@@ -52,9 +52,6 @@ let g:dotoo_headline_highlight_colors = [
 			\ 'Special',
 			\ 'Constant']
 
-let g:dotoo#agenda#warning_days = '30d'
-let g:dotoo#agenda_view#agenda#start_of = 'today'
-hi dotoo_shade_stars ctermfg=NONE guifg='#000000'
 " Requires the program date to be installed
 function! ChangeDate() abort
   if !executable('date')
@@ -81,7 +78,6 @@ hi link orgHeading2 Normal
 let g:org_time='%H:%M'
 let g:org_date='%Y-%m-%d %a'
 let g:org_date_format=g:org_date.' '.g:org_time
-map <silent>gO :e ~/Documents/org<CR>
 map <silent>gC :call CreateCapture('split')<CR>
 command! -nargs=0 NGrep grep! ".*" ~/.local/Dropbox/Documents/org/**/*.org
 " 2}}} "Orgmode

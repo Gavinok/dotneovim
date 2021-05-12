@@ -269,9 +269,12 @@
        augroup END")
      ; Viml: let g:dotoo#agenda#files = ['~/Documents/org/*.org']
      (set nvim.g.dotoo#agenda#files ["~/Documents/org/*.org"])
+     (set nvim.g.dotoo#agenda#warning_days  "30d")
+     (set nvim.g.dotoo#agenda_view#agenda#start_of  "today")
      (set nvim.g.dotoo_begin_src_languages ["vim" "clojure" "fennel" "lua" "sql"])
      (nvim.ex.highlight "dotoo_shade_stars ctermfg=NONE guifg=#000000")
      (vim.cmd ":set conceallevel=2")
+     (u.noremap :n :gO ":e ~/Documents/org<CR>"  {:silent true })
      (augroup :org_settings
               [[:FileType :dotoo #(let [opts {:buffer bufnr :silent true}]
                                     (set nvim.b.omnifunc "dotoo#autocompletion#omni")
