@@ -180,6 +180,7 @@
       :high-moctane/asyncomplete-nextword.vim
       :prabirshrestha/asyncomplete-buffer.vim
       :DonnieWest/asyncomplete_neovim_lsp]
+     "settings can be found at ../plugin/asyncomplete.vim"
      (vim.cmd
        "inoremap <expr> <Tab>   pumvisible() ? \"\\<C-n>\" : \"\\<Tab>\"
        inoremap <expr> <S-Tab> pumvisible() ? \"\\<C-p>\" : \"\\<S-Tab>\"
