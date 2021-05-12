@@ -259,7 +259,8 @@
      (nvim.ex.highlight "LineNr      guibg=NONE"))
 
 (use [:dhruvasagar/vim-dotoo
-      :emaniacs/OrgEval.vim]
+      :emaniacs/OrgEval.vim
+      :dhruvasagar/vim-table-mode]
      "Setup Vim For Use With Org Files"
      ; set autocmd for orgfiles
      ; should be replaced with fennel
