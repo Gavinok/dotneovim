@@ -79,4 +79,15 @@ let g:org_time='%H:%M'
 let g:org_date='%Y-%m-%d %a'
 let g:org_date_format=g:org_date.' '.g:org_time
 " map <silent>gC :call CreateCapture('split')<CR>
+
+function! s:isAtStartOfLine(mapping)
+	let text_before_cursor = getline('.')[0 : col('.')-1]
+	let mapping_pattern = '\V' . escape(a:mapping, '\')
+	let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+	return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+endfunction
+
+inoreabbrev <expr> <bar><bar>
+			\ <SID>isAtStartOfLine('\|\|') ?
+			\ '<c-o>:packadd vim-table-mode<cr><c-o>:TableModeEnable<cr><bar>' : '<bar><bar>'
 " 2}}} "Orgmode
