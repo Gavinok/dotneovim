@@ -47,9 +47,9 @@
          :hidden         true                    ;; Allow to leave buffer without saving
          :showcmd        true                    ;; Show keys pressed in normal
          :lazyredraw     true
-         :shortmess      :aAtcT                  ;; Get rid of annoying messagesc
+         :shortmess      :aAtcT                  ;; Get rid of annoying messages
          ; Tags
-         :tags           ".tags,tags"            ;; Make tagefiles hidden
+         :tags           ".tags,tags"            ;; Make tag files hidden
          :tagcase        :match                  ;; Match case when searching for tags
          ; Whitespace
          :listchars      "tab:→ ,trail:·,nbsp:·" ;; Show white space
