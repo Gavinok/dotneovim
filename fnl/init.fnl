@@ -264,18 +264,22 @@
 
 (use [:dhruvasagar/vim-dotoo
       :emaniacs/OrgEval.vim
-      :dhruvasagar/vim-table-mode]
+      (:dhruvasagar/vim-table-mode {:opt true})]
      "Setup Vim For Use With Org Files"
      ; set autocmd for orgfiles
      ; should be replaced with fennel
      ; Viml: let g:dotoo#agenda#files = ['~/Documents/org/*.org']
      (set nvim.g.dotoo#agenda#files ["~/Documents/org/*.org"])
      (set nvim.g.dotoo#agenda#warning_days  "30d")
+     (set nvim.g.dotoo_disable_mappings 0)
      (set nvim.g.dotoo#agenda_view#agenda#start_of  "today")
+     (set nvim.g.dotoo#agenda_views#agenda#span  "week")
+     (set nvim.g.dotoo_begin_src_languages ["vim" "clojure" "fennel" "lua" "sql"])
      (set nvim.g.dotoo_begin_src_languages ["vim" "clojure" "fennel" "lua" "sql"])
      (nvim.ex.highlight "dotoo_shade_stars ctermfg=NONE guifg=#000000")
      (vim.cmd ":set conceallevel=2")
      (u.noremap :n :gO ":e ~/Documents/org<CR>"  {:silent true })
+     ; (u.noremap :n :gC ":call CreateCapture('split')<CR>" {:silent true })
      (augroup :org_settings
               [[:FileType :dotoo #(let [opts {:buffer bufnr :silent true}]
                                     (set nvim.b.omnifunc "dotoo#autocompletion#omni")
