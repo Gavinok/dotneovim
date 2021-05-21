@@ -262,6 +262,10 @@
      (nvim.ex.highlight "Terminal    guibg=NONE")
      (nvim.ex.highlight "LineNr      guibg=NONE"))
 
+(use [:norcalli/nvim-colorizer.lua]
+     (let [col (require :colorizer)]
+       (col.setup)))
+
 (use [:dhruvasagar/vim-dotoo
       :emaniacs/OrgEval.vim
       (:dhruvasagar/vim-table-mode {:opt true})]
