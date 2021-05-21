@@ -178,13 +178,17 @@
 (use [:prabirshrestha/asyncomplete.vim
       :prabirshrestha/async.vim
       :high-moctane/asyncomplete-nextword.vim
+      :prabirshrestha/asyncomplete-tags.vim
       :prabirshrestha/asyncomplete-buffer.vim
       :DonnieWest/asyncomplete_neovim_lsp]
-     "settings can be found at ../plugin/asyncomplete.vim"
+     "settings can be found at ../autoload/myasyncomplete.vim"
+     (fn load-asyncomplete []
+       "lazy load asyncomplete"
+       (vim.cmd "call myasyncomplete#setup()"))
+     (vim.defer_fn load-asyncomplete 500)
      (vim.cmd
        "inoremap <expr> <Tab>   pumvisible() ? \"\\<C-n>\" : \"\\<Tab>\"
-       inoremap <expr> <S-Tab> pumvisible() ? \"\\<C-p>\" : \"\\<S-Tab>\"
-       inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : \"\\<cr>\""))
+       inoremap <expr> <S-Tab> pumvisible() ? \"\\<C-p>\" : \"\\<S-Tab>\""))
 
 ;; Aniseed compile on file save
 (augroup :aniseed_compile_on_save
@@ -302,6 +306,27 @@
            :javascript "node"
            :r "Rscript -"}))
 
+;; What langs need word processor settings
+(set nvim.g.writing_langs
+  [
+   ;general
+   :mail :gitcommit
+   ;markup
+   :markdown :dotoo :html
+   ;roff & tex
+   :groff :troff :tex
+   ])
+
+(augroup :writing
+         [[:FileType (table.concat nvim.g.writing_langs ",")
+           #(let [opt {:buffer bufnr :silent true}]
+              (nvim.ex.setlocal :spell)
+              (nvim.ex.setlocal :expandtab)
+              (nvim.ex.setlocal "shiftwidth=2")
+              (nvim.ex.setlocal "softtabstop=2")
+              ; viml initialization ../autoload/writing.vim
+              (nvim.fn.writing#init))]])
+
 (local *lsp-attach-hook* {})
 (use [(:neovim/nvim-lspconfig {:opt true})]
      "Setup Lsp Support For Different Languages"
@@ -360,6 +385,7 @@
           autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
           augroup END"))
 
+      (vim.cmd "call asyncomplete#register_source(asyncomplete#sources#lsp#get_source_options({}))")
       (u.run-hook *lsp-attach-hook* client bufnr))
 
   (u.defer-lsp-setup
