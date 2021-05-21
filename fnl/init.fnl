@@ -124,6 +124,14 @@
                 (map* :n nopts
                       {")" "])"
                        "(" "[("}))]]))
+(use [
+      :DHMike57/vrod ;adds documentation for racket
+      ]
+  "Racket Settings"
+  (augroup :racket_settings
+           [[:FileType :racket
+             #(nvim.ex.source "$VIMRUNTIME/syntax/scheme.vim")]]))
+
 (use [:axvr/zepl.vim]
      (set nvim.g.repl_config  {:clojure    { :cmd "joker --no-readline" }
                                :apl        { :cmd "apl" }
