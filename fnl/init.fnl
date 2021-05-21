@@ -282,11 +282,7 @@
                                     (u.noremap :n :<leader>e ":OrgEval<CR>" opts)
                                     (u.noremap :n :<leader>E ":call org_eval#OrgToggleEdit()<CR>" opts)
                                     (u.map     :n :cid       ":call ChangeDate()" opts)
-                                    (nvim.ex.setlocal :spell)
-                                    (nvim.ex.setlocal :expandtab)
-                                    (nvim.ex.setlocal :nowrap)
-                                    (nvim.ex.setlocal "shiftwidth=2")
-                                    (nvim.ex.setlocal "softtabstop=2"))]])
+                                    (nvim.ex.setlocal :nowrap))]])
      (set nvim.g.org_eval_run_cmd
           {:python "python3"
            :clojure "joker"
@@ -407,7 +403,7 @@
     {:on_attach on-lsp-attach})
 
   (u.defer-lsp-setup
-    :efm [:clojure :fennel :sh :mail :gitcommit :org :markdown :tex]
+    :efm [:clojure :fennel :sh (table.concat nvim.g.writing_langs ",")]
     {:on_attach on-lsp-attach
      :root_dir #(let [lsp (require :lspconfig)]
                   (or
