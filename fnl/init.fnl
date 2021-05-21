@@ -205,17 +205,20 @@
       :tpope/vim-commentary
       :tpope/vim-surround])
 
-(use [(:tpope/vim-fugitive {:opt true})]
+(use [(:tpope/vim-fugitive {:opt true})
+      (:mhinz/vim-signify {:opt true})]
      (fn load-fugitive []
-       "lazy load vim-fugitive"
-       (nvim.ex.packadd :vim-fugitive))
+       "lazy load vim-fugitive and vim-signify"
+       (nvim.ex.packadd :vim-fugitive)
+       (nvim.ex.packadd :vim-signify)
+       (vim.cmd "SignifyEnable"))
      (vim.defer_fn load-fugitive 1500)
      (u.noremap :n :Q ":Git<CR>")
      (vim.cmd
        "command! -bang -nargs=? -range=-1 Git packadd vim-fugitive | Git"))
 
 
-(use [:mhinz/vim-signify
+(use [
       :justinmk/vim-dirvish
       :tommcdo/vim-lion])
 
