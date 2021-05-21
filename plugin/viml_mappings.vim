@@ -1,12 +1,3 @@
-" shortcut to change filetype
-nnoremap <leader>ft  :setfiletype<space>
-" shortcut to search help
-nnoremap <leader>hh  :help<Space>
-
-"For Proper Tabbing And Bracket Insertion"
-inoremap {<CR> {<CR>}<c-o><s-o>
-inoremap (<CR> (<CR>)<c-o><s-o>
-
 " if this is a normal buffer use <CR> to toggle folding
 nmap <expr> <CR> &buftype ==# '' ? 'za' : "\<CR>"
 

@@ -471,10 +471,18 @@
 (u.noremap :n "]A" ":silent! lnext<CR>")
 (u.noremap :n "[A" ":silent! lprevious<CR>")
 
-;quick buffer navigation
+;; Quick buffer navigation
 (u.noremap :n "]b" ":silent! bnext<CR>")
 (u.noremap :n "[b" ":silent! bprevious<CR>")
 (u.noremap :n :<leader>b ":b <c-d>")
+
+;; Shortcuts
+(u.noremap :n :<leader>ft  ":setfiletype<space>") ; for filetype
+(u.noremap :n :<leader>hh  ":help<Space>")        ; for help
+
+;; For Proper Tabbing And Bracket Insertion
+(u.noremap :i "{<CR>" "{<CR>}<c-o><s-o>")
+(u.noremap :i "(<CR>" "(<CR>)<c-o><s-o>")
 
 (u.noremap :n :<leader>y ":let @+ = expand('%:p')<CR>")
 
