@@ -89,7 +89,7 @@
 (fn executable? [command]
         (nvim.fn.executable command))
 
-; grepprog
+; Grepprg
 (if (executable? "rg")
   ;then
   (do
