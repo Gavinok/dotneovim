@@ -50,10 +50,12 @@
       (nvim.set_keymap
         mode from to (or opts {})))))
 
-; (fn noremap [mode from to opts]
-;   "Sets a global mapping with {:noremap true}."
-;   (let [opts (a.assoc (or (vim.deepcopy opts) {}) :noremap true)]
-;     (map mode from to opts)))
+(fn iabr [from to]
+  "Shorthand for creating abbreviations"
+  (vim.cmd (.. "iabbrev "
+               from " "
+               to)))
+
 (fn noremap [mode from to opt]
   "Sets a mapping with {:noremap true}."
   (if (= opt nil)
@@ -105,7 +107,9 @@
            (lsp.manager.try_add)))]]))
 
 {:targ_fns *targ-fns*
+            : iabr
             : map
+            : func-to-cmd
             : noremap
             : augroup
             : run-hook

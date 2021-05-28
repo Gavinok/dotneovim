@@ -28,12 +28,12 @@
 
 ;; leader
 ;; leader is still set to \ but mapped to space
-(set nvim.g.maplocalleader ",") ; map local leader to ,
+(set vim.g.maplocalleader ",") ; map local leader to ,
 (u.map :n  :<space>  :<leader>)
 (u.map :x  :<space>  :<leader>)
 
 ;; Undo
-(set nvim.o.undodir (.. (vim.fn.stdpath "cache") "/vim/undo/"))
+(set vim.o.undodir (.. (vim.fn.stdpath "cache") "/vim/undo/"))
 
  ;; for some reason (set nvim.o.undofile true) won't work
 (nvim.ex.set :undofile)
@@ -42,7 +42,7 @@
 (vim.cmd ":set foldmethod=syntax")
 (vim.cmd ":set foldlevel=99")
 
-(a.assoc nvim.o
+(a.assoc vim.o
          :mouse          :a
          :title          true                    ;; Update window title
          :hidden         true                    ;; Allow to leave buffer without saving
@@ -74,7 +74,7 @@
          :splitbelow     true                    ;; open below instead of above
          :splitright     true                    ;; open right instead of left
          ;
-         :clipboard      :unnamedplus            ;; xclip support
+         :clipboard      "unnamed,unnamedplus"            ;; xclip support
          :fillchars      "fold: ,diff: "
          ; substitution
          :inccommand     :split
@@ -108,31 +108,6 @@
 (vim.cmd "xmap <leader>t :<C-U>call dotvim#titlecase(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>")
 (vim.cmd "nmap <leader>T :set opfunc=dotvim#titlecase<Bar>exe 'norm! 'v:count1.'g@_'<CR>")
 
-(let [filetypes [ :fennel :clojure :racket :scheme :lisp :hy ] ]
-  "lisp settings"
-  (augroup :lisp_settings
-           [[:FileType (table.concat filetypes ",")
-             #(let [nopts {:noremap true :silent true :buffer bufnr}
-                    buf {:buffer bufnr}]
-                (nvim.ex.setlocal :expandtab)
-                (map* :o buf
-                      {:if :ib 
-                       ")" "])" 
-                       :af :ab  
-                       :is "i\""
-                       :as "a\""
-                       "(" "[("}) 
-                (map* :n nopts
-                      {")" "])"
-                       "(" "[("}))]]))
-(use [
-      :DHMike57/vrod ;adds documentation for racket
-      ]
-  "Racket Settings"
-  (augroup :racket_settings
-           [[:FileType :racket
-             #(nvim.ex.source "$VIMRUNTIME/syntax/scheme.vim")]]))
-
 (use [:axvr/zepl.vim]
      (set vim.g.repl_config  {:clojure    { :cmd "joker --no-readline" }
                                :apl        { :cmd "apl" }
@@ -144,29 +119,12 @@
                                :math       { :cmd "qalc" }
                                :javascript { :cmd "node" } }))
 
-
+(augroup :aniseed_compile_on_save
+              [[:BufWritePost "~/*/*vim/*.fnl" #(let [e (require :aniseed.env)]
+                                                  (e.init))]])
 ;; fennel stuff
 (use [(:Olical/conjure {:opt true})]
      "Set Up Neovim For Fennel Development"
-     ;; Aniseed compile on file save
-     (augroup :aniseed_compile_on_save
-              [[:BufWritePost "~/*/*vim/*.fnl" #(let [e (require :aniseed.env)]
-                                                  (e.init))]])
-     (augroup :lazy_conjure
-              [[:FileType "fennel"
-                #(do
-                   (set vim.bo.suffixesadd ".fnl")
-                   (set vim.g.paredit_leader "<leader>")
-                   (set vim.bo.define "(\\(fn\\|macro\\|lambda\\|λ\\)\\s\\zs\\w")
-                   (set vim.bo.include "(\\(require\\-macros\\|import\\-macros\\|require\\)")
-                   (set vim.bo.includeexpr "substitute(v:fname,'\\.','/','g')")
-                   (set vim.o.lispwords (.. vim.o.lispwords ",collect,icollect,with-open"))
-                   ;; evaluate the current line of fennel
-                   (u.map :n :<leader>j #(let [line (nvim.fn.getline ".")
-                                               eval (require :aniseed.eval)]
-                                           (eval.str line)))
-                   (nvim.ex.packadd :conjure)
-                   ((. (require :conjure.mapping) :on-filetype)))]])
      (tset vim.g
            :conjure#client#fennel#aniseed#aniseed_module_prefix
            "aniseed."))
@@ -300,44 +258,6 @@
               ; viml initialization ../autoload/writing.vim
               (nvim.fn.writing#init))]])
 
-; (local init-timer (begin-timer))
-; (augroup :mail_settings
-;          [[:FileType :mail
-;            #(do (fn mail_setup []
-;                   "Get content from an email header and return it as a string
-;                    id the regex for the key 
-;                    ptrn the pattern to match the value
-;                    lnum is the optional starting line
-;                    returns a string containing that mail parameter"
-;                   (do
-;                     (fn mail-param [id  ptrn ?lnum]
-;                       (let [bufnr (nvim.fn.bufnr "%")
-;                             lnum  (or ?lnum 0)
-;                             line  (nvim.fn.getline (or ?lnum 0))
-;                             max   (vim.fn.line "$")]
-;                         (if (>= lnum max)
-;                           :error
-;                           (match (line:match
-;                                    (.. id ptrn))
-;                             str (let [ (text _) (: str :gsub id "" 1)]
-;                                   text)
-;                             nil (mail-param id ptrn (+ lnum 1))))))
-;                     (set vim.b.mail_my_name "Gavin Jaeger-Freeborn")
-;                     ; (set nvim.b.mail_from (mail-param "^From: " "%a+" 1))
-;                     (u.iabr "tt" (.. "<c-o>:" (u.func-to-cmd #(print "hello") :tt) "<CR>"))
-;                     (u.iabr "hey" (.. "Hey <c-o>:"
-;                                       (u.func-to-cmd #(set vim.b.mail_to (mail-param "^To: " "%a+")) :To) "<CR>"
-;                                       "<c-r>=b:mail_to<CR>,<CR>"))
-;                     (u.iabr "hello" (.. "Hello <c-o>:"
-;                                       (u.func-to-cmd #(set vim.b.mail_to (mail-param "^To: " "%a+")) :To) "<CR>"
-;                                       "<c-r>=b:mail_to<CR>,<CR>"))
-;                     (u.iabr "Hope" "Hope you are doing well.")
-;                     (u.iabr "questions?" "If you have any questions don't hesitate to contact me.")
-;                     (u.iabr "thx"  "Thanks,<CR><c-r>=b:mail_my_name<CR>")
-;                     (u.iabr "sin" "Sincerely,<CR><c-r>=b:mail_my_name<CR>")))
-;               (vim.defer_fn mail_setup 300))]])
-; (end-timer init-timer "Init loaded in %f msecs.")
-
 (local *lsp-attach-hook* {})
 (use [(:neovim/nvim-lspconfig {:opt true})]
      "Setup Lsp Support For Different Languages"
@@ -439,21 +359,6 @@
   (winmap :<c-j>)
   (winmap :<c-k>)
   (winmap :<c-l>))
-
-; (use [:nvim-treesitter/nvim-treesitter
-;       :p00f/nvim-ts-rainbow
-;       :lewis6991/spellsitter.nvim]
-;      (let [rainbow (require :nvim-treesitter.configs)
-;            tree (require :nvim-treesitter.configs)
-;            spell (require :spellsitter)] 
-;        (tree.setup {
-;                     :rainbow {
-;                               :enable false
-;                               :extended_mode true
-;                               :max_file_lines 1000
-;                               }
-;                     })
-;        (spell.setup { :hl "Error" :capture []})))
 
 ; better defaults
 (u.noremap :n :Y  "y$")
