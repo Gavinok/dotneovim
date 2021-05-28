@@ -1,17 +1,17 @@
 ; example 1 https://github.com/steelsojka/dotfiles2/tree/107f53d112ee5a575af4d3a34b5b528294e5580e/.vim/fnl/dotfiles
 ; example 2 https://github.com/Olical/dotfiles/tree/master/stowed/.config/nvim/fnl/dotfiles
 ; example 3 https://www.github.com/Javyre/etc/tree/master/nvim%2Ffnl%2Finit.fnl
+; example 4 https://gitlab.com/TravonteD/neovim-config
+; Automatic documentation https://gitlab.com/andreyorst/fenneldoc
 ; lua guid https://github.com/nanotee/nvim-lua-guide
 
-; (fn begin-timer []
-;   (vim.loop.hrtime))
+(fn begin-timer []
+  (vim.loop.hrtime))
 
-; (fn end-timer [start msg?]
-;   (let [end (vim.loop.hrtime)
-;         msg (or msg? "Elapsed time: %f msecs")]
-;    (print (string.format msg (/ (- end start) 1000000)))))
-
-; (local init-timer (begin-timer))
+(fn end-timer [start msg?]
+  (let [end (vim.loop.hrtime)
+        msg (or msg? "Elapsed time: %f msecs")]
+   (print (string.format msg (/ (- end start) 1000000)))))
 (local u    (require :util))
 (local a    (require :aniseed.core))
 (local print a.println)
@@ -24,6 +24,7 @@
 (require-macros :macros)
 
 (local augroup u.augroup)
+(local iabr u.iabr)
 
 ;; leader
 ;; leader is still set to \ but mapped to space
@@ -79,7 +80,7 @@
          :inccommand     :split
          :gdefault       true                    ;; global substitution by default (no need for /g flag)
          :diffopt                                ;; smarter diff
-         (.. (or nvim.o.diffopt "") ",indent-heuristic,algorithm:histogram")
+         (.. (or vim.o.diffopt "") ",indent-heuristic,algorithm:histogram")
          :wildmenu        true                   ;; Autocompletion of commands
          :wildignorecase  true
          :wildmode        "longest:full,full"
@@ -93,13 +94,13 @@
 (if (executable? "rg")
   ;then
   (do
-     (set nvim.o.grepprg "rg  --vimgrep")
-     (set nvim.o.grepformat "%f:%l:%c:%m"))
+     (set vim.o.grepprg "rg  --vimgrep")
+     (set vim.o.grepformat "%f:%l:%c:%m"))
   (executable? "ag")
   ;then
-  (set nvim.o.grepprg "ag --vimgrep")
+  (set vim.o.grepprg "ag --vimgrep")
   ;else
-  (set nvim.o.grepprg "grep -R -n --exclude-dir=.git,.cache"))
+  (set vim.o.grepprg "grep -R -n --exclude-dir=.git,.cache"))
 
 ; Capital Quick first letter of a word or a regain
 ; should eventually be replaced  with fennel
@@ -107,7 +108,7 @@
 (vim.cmd "xmap <leader>t :<C-U>call dotvim#titlecase(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>")
 (vim.cmd "nmap <leader>T :set opfunc=dotvim#titlecase<Bar>exe 'norm! 'v:count1.'g@_'<CR>")
 
-(let [filetypes [ :fennel :clojure :racket :scheme :lisp ] ]
+(let [filetypes [ :fennel :clojure :racket :scheme :lisp :hy ] ]
   "lisp settings"
   (augroup :lisp_settings
            [[:FileType (table.concat filetypes ",")
@@ -133,7 +134,7 @@
              #(nvim.ex.source "$VIMRUNTIME/syntax/scheme.vim")]]))
 
 (use [:axvr/zepl.vim]
-     (set nvim.g.repl_config  {:clojure    { :cmd "joker --no-readline" }
+     (set vim.g.repl_config  {:clojure    { :cmd "joker --no-readline" }
                                :apl        { :cmd "apl" }
                                :sh         { :cmd "dash" }
                                :python     { :cmd "python" }
@@ -147,41 +148,29 @@
 ;; fennel stuff
 (use [(:Olical/conjure {:opt true})]
      "Set Up Neovim For Fennel Development"
+     ;; Aniseed compile on file save
+     (augroup :aniseed_compile_on_save
+              [[:BufWritePost "~/*/*vim/*.fnl" #(let [e (require :aniseed.env)]
+                                                  (e.init))]])
      (augroup :lazy_conjure
               [[:FileType "fennel"
                 #(do
+                   (set vim.bo.suffixesadd ".fnl")
+                   (set vim.g.paredit_leader "<leader>")
+                   (set vim.bo.define "(\\(fn\\|macro\\|lambda\\|λ\\)\\s\\zs\\w")
+                   (set vim.bo.include "(\\(require\\-macros\\|import\\-macros\\|require\\)")
+                   (set vim.bo.includeexpr "substitute(v:fname,'\\.','/','g')")
+                   (set vim.o.lispwords (.. vim.o.lispwords ",collect,icollect,with-open"))
                    ;; evaluate the current line of fennel
                    (u.map :n :<leader>j #(let [line (nvim.fn.getline ".")
                                                eval (require :aniseed.eval)]
                                            (eval.str line)))
                    (nvim.ex.packadd :conjure)
                    ((. (require :conjure.mapping) :on-filetype)))]])
-     (tset nvim.g
+     (tset vim.g
            :conjure#client#fennel#aniseed#aniseed_module_prefix
            "aniseed."))
 
-; (use [(:nvim-treesitter/nvim-treesitter {:opt true :run (fn [] (nvim.ex.TSUpdate))})])
-;(use [:nvim-lua/completion-nvim]
-;     "Mucomplete Like Completion With Better LSP Support"
-;     (set nvim.o.completeopt "menuone,noselect") ; Only select when told
-;     (set nvim.g.completion_auto_change_source 1)
-;     (set nvim.g.completion_matching_smart_case  1)
-;     (set nvim.g.completion_trigger_on_delete 1)
-;     (set nvim.g.completion_chain_complete_list { :default [ {:complete_items ["path" "lsp"]}
-;                                                            ;{:mode "omni"}
-;                                                            {:mode "<c-n>"} ]
-;                                                  :mail [ {:complete_items ["path"]}
-;                                                         {:mode "spel"}]
-;                                                  :vim [ {:complete_items ["path"]}
-;                                                         {:mode "cmd"}]
-;                                                  :dotoo [ {:complete_items ["path"]}
-;                                                           {:mode "omni" :triggered_only ["."]}
-;                                                           {:mode "spel"}
-;                                                           {:mode "<c-n>"}]})
-;     (vim.cmd 
-;       "imap <tab> <Plug>(completion_smart_tab)
-;       imap <s-tab> <Plug>(completion_smart_s_tab)
-;       autocmd BufEnter * lua require'completion'.on_attach()"))
 (use [:prabirshrestha/asyncomplete.vim
       :prabirshrestha/async.vim
       :high-moctane/asyncomplete-nextword.vim
@@ -197,10 +186,6 @@
        "inoremap <expr> <Tab>   pumvisible() ? \"\\<C-n>\" : \"\\<Tab>\"
        inoremap <expr> <S-Tab> pumvisible() ? \"\\<C-p>\" : \"\\<S-Tab>\""))
 
-;; Aniseed compile on file save
-(augroup :aniseed_compile_on_save
-  [[:BufWritePost "~/*/*vim/*.fnl" #(let [e (require :aniseed.env)]
-                                      (e.init))]])
 (use [:tpope/vim-repeat
       :tpope/vim-commentary
       :tpope/vim-surround])
@@ -218,49 +203,12 @@
        "command! -bang -nargs=? -range=-1 Git packadd vim-fugitive | Git"))
 
 
-(use [
-      :justinmk/vim-dirvish
+(use [:justinmk/vim-dirvish
       :tommcdo/vim-lion])
-
-;; finally snippets written in lisp (sorta)
-;; example snippets https://github.com/L3MON4D3/LuaSnip/blob/master/Examples/snippets.lua
-;; this may be a better option https://github.com/norcalli/snippets.nvim
-(use [:L3MON4D3/LuaSnip]
-     (vim.cmd "imap <silent><expr> <c-f> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-f>'")
-     (fn append-arg-to-cap [args]
-       (let [captured (. (. (. args 1) :captures) 1)]
-         (if (not (= captured ""))
-           [(..
-              ", "
-              captured)]
-           [])))
-     (let [ls (require :luasnip)]
-       (set ls.snippets
-            {:all ; filetype for each snippet
-             [ (ls.s { :trig "trigger"}
-                     [(ls.i 1 ["place holder text"])
-                      (ls.t ["" "wow1 text" ""])
-                      (ls.i 0)])
-              (ls.parser.parse_snippet {:trig "Wow! This"}
-                                       "Wow! This ${1:Stuff} really ${2:works. ${3:Well, a bit.}}")
-              (ls.s { :trig "tester" :regTrig true}
-                    [(ls.t ["testing the regex trigger"])
-                     (ls.i 0)])]
-             :c
-             [ (ls.s { :trig "printf([%w_]*)" :regTrig true :wordTrig true}
-                     [(ls.t ["printf(\""]) (ls.i 1 ["value is %d\\n"]) (ls.t ["\""]);TODO if snip contains % then add ,
-                      (ls.f append-arg-to-cap [])
-                      (ls.t [");"]) (ls.i 0)])]
-             :dotoo
-             [ (ls.s { :trig "cbl"}
-                     [(ls.t ["#+BEGIN_SRC "]) (ls.i 1 ["FileType"])
-                      (ls.t ["" ""]) (ls.i 0)
-                      (ls.t ["" "#+END_SRC"])])]})));TODO if snip contains % then add ,
-
 
 (use [:Gavinok/spaceway.vim]
      "Setup Colorscheme"
-     (set nvim.o.termguicolors true)
+     (set vim.o.termguicolors true)
      (nvim.ex.colorscheme :spaceway)
      (nvim.ex.highlight "Normal ctermbg=NONE")
      (nvim.ex.highlight "Conceal ctermbg=NONE")
@@ -283,32 +231,32 @@
      ; set autocmd for orgfiles
      ; should be replaced with fennel
      ; Viml: let g:dotoo#agenda#files = ['~/Documents/org/*.org']
-     (set nvim.g.dotoo#agenda#files ["~/Documents/org/*.org"])
-     (set nvim.g.dotoo#agenda#warning_days  "30d")
-     (set nvim.g.dotoo_disable_mappings 0)
-     (set nvim.g.dotoo#agenda_view#agenda#start_of  "today")
-     (set nvim.g.dotoo#agenda_views#agenda#span  "week")
-     (set nvim.g.dotoo_begin_src_languages ["vim" "clojure" "fennel" "lua" "sql"])
-     (set nvim.g.dotoo_begin_src_languages ["vim" "clojure" "fennel" "lua" "sql"])
+     (set vim.g.dotoo#agenda#files ["~/Documents/org/*.org"])
+     (set vim.g.dotoo#agenda#warning_days  "30d")
+     (set vim.g.dotoo_disable_mappings 0)
+     (set vim.g.dotoo#agenda_view#agenda#start_of  "today")
+     (set vim.g.dotoo#agenda_views#agenda#span  "week")
+     (set vim.g.dotoo_begin_src_languages ["vim" "clojure" "scheme" "fennel" "lua" "sql"])
      (nvim.ex.highlight "dotoo_shade_stars ctermfg=NONE guifg=#000000")
      (vim.cmd ":set conceallevel=2")
      (u.noremap :n :gO ":e ~/Documents/org<CR>"  {:silent true })
      ; (u.noremap :n :gC ":call CreateCapture('split')<CR>" {:silent true })
      (augroup :org_settings
               [[:FileType :dotoo #(let [opts {:buffer bufnr :silent true}]
-                                    (set nvim.b.omnifunc "dotoo#autocompletion#omni")
+                                    (set vim.b.omnifunc "dotoo#autocompletion#omni")
                                     (u.noremap :n :<leader>e ":OrgEval<CR>" opts)
                                     (u.noremap :n :<leader>E ":call org_eval#OrgToggleEdit()<CR>" opts)
                                     (u.map     :n :cid       ":call ChangeDate()" opts)
                                     (nvim.ex.setlocal :nowrap))]])
-     (set nvim.g.org_eval_run_cmd
+     (set vim.g.org_eval_run_cmd
           {:python "python3"
            :clojure "joker"
            :lisp "janet"
            :racket "racket"
-           :scheme "racket"
+           :scheme "guile"
            :slideshow "slideshow"
            :fennel "fennel"
+           :hy "hy"
            :haskell "runhaskell"
            :sh "sh"
            :bash "bash"
@@ -320,19 +268,30 @@
            :javascript "node"
            :r "Rscript -"}))
 
+
+(use [:Gavinok/vim-troff])
+
+(use [(:Gavinok/vim-minisnip { :branch "optionalautoindent" })]
+     (set vim.g.minisnip_autoindent  0)
+     (set vim.g.name  "Gavin Jaeger-Freeborn")
+     (set vim.g.email  "gavinfreeborn@gmail.com")
+     (set vim.g.minisnip_trigger  "<C-f>")
+     (let [snipdir (vim.fn.globpath "~/.vim/" "**/*extra/snip")]
+       (set vim.g.minisnip_dir (.. snipdir ":" (nvim.fn.join (nvim.fn.split (nvim.fn.glob (.. snipdir "**/") )  "\n")  ":")))))
+
 ;; What langs need word processor settings
 (set nvim.g.writing_langs
-  [
-   ;general
-   :mail :gitcommit
-   ;markup
-   :markdown :dotoo :html
-   ;roff & tex
-   :groff :troff :tex
-   ])
+     [
+      ;general
+      :mail :gitcommit
+      ;markup
+      :markdown :dotoo :html
+      ;roff & tex
+      :groff :troff :tex
+      ])
 
 (augroup :writing
-         [[:FileType (table.concat nvim.g.writing_langs ",")
+         [[:FileType (table.concat vim.g.writing_langs ",")
            #(let [opt {:buffer bufnr :silent true}]
               (nvim.ex.setlocal :spell)
               (nvim.ex.setlocal :expandtab)
@@ -340,6 +299,44 @@
               (nvim.ex.setlocal "softtabstop=2")
               ; viml initialization ../autoload/writing.vim
               (nvim.fn.writing#init))]])
+
+; (local init-timer (begin-timer))
+; (augroup :mail_settings
+;          [[:FileType :mail
+;            #(do (fn mail_setup []
+;                   "Get content from an email header and return it as a string
+;                    id the regex for the key 
+;                    ptrn the pattern to match the value
+;                    lnum is the optional starting line
+;                    returns a string containing that mail parameter"
+;                   (do
+;                     (fn mail-param [id  ptrn ?lnum]
+;                       (let [bufnr (nvim.fn.bufnr "%")
+;                             lnum  (or ?lnum 0)
+;                             line  (nvim.fn.getline (or ?lnum 0))
+;                             max   (vim.fn.line "$")]
+;                         (if (>= lnum max)
+;                           :error
+;                           (match (line:match
+;                                    (.. id ptrn))
+;                             str (let [ (text _) (: str :gsub id "" 1)]
+;                                   text)
+;                             nil (mail-param id ptrn (+ lnum 1))))))
+;                     (set vim.b.mail_my_name "Gavin Jaeger-Freeborn")
+;                     ; (set nvim.b.mail_from (mail-param "^From: " "%a+" 1))
+;                     (u.iabr "tt" (.. "<c-o>:" (u.func-to-cmd #(print "hello") :tt) "<CR>"))
+;                     (u.iabr "hey" (.. "Hey <c-o>:"
+;                                       (u.func-to-cmd #(set vim.b.mail_to (mail-param "^To: " "%a+")) :To) "<CR>"
+;                                       "<c-r>=b:mail_to<CR>,<CR>"))
+;                     (u.iabr "hello" (.. "Hello <c-o>:"
+;                                       (u.func-to-cmd #(set vim.b.mail_to (mail-param "^To: " "%a+")) :To) "<CR>"
+;                                       "<c-r>=b:mail_to<CR>,<CR>"))
+;                     (u.iabr "Hope" "Hope you are doing well.")
+;                     (u.iabr "questions?" "If you have any questions don't hesitate to contact me.")
+;                     (u.iabr "thx"  "Thanks,<CR><c-r>=b:mail_my_name<CR>")
+;                     (u.iabr "sin" "Sincerely,<CR><c-r>=b:mail_my_name<CR>")))
+;               (vim.defer_fn mail_setup 300))]])
+; (end-timer init-timer "Init loaded in %f msecs.")
 
 (local *lsp-attach-hook* {})
 (use [(:neovim/nvim-lspconfig {:opt true})]
@@ -403,7 +400,7 @@
       (u.run-hook *lsp-attach-hook* client bufnr))
 
   (u.defer-lsp-setup
-    :jdtls ["java"]
+    :jdtls [:java]
     {:on_attach on-lsp-attach
      :cmd ["jdtls"]
      :root_dir #(let [lsp (require :lspconfig)]
@@ -412,24 +409,24 @@
                     (lsp.util.path.dirname $1)))})
 
   (u.defer-lsp-setup
-    :ccls ["c" "cpp" "objc" "objcpp"]
+    :ccls [:c :cpp :objc :objcpp]
     {:init_options { :cache { "directory" "/tmp/ccls-cache" } }
      :on_attach on-lsp-attach})
 
   (u.defer-lsp-setup
-    :pyls ["python"]
+    :pyls [:python]
     {:on_attach on-lsp-attach})
 
   (u.defer-lsp-setup
-    :efm [:clojure :fennel :sh (table.concat nvim.g.writing_langs ",")]
+    :efm [:clojure :fennel :sh (table.concat vim.g.writing_langs ",")]
     {:on_attach on-lsp-attach
      :root_dir #(let [lsp (require :lspconfig)]
                   (or
-                    ((lsp.util.root_pattern ".git")
+                    ((lsp.util.root_pattern "settings.gradle" ".git")
                      $1)
                     (lsp.util.path.dirname $1)))})
   (u.defer-lsp-setup
-    :racket_langserver ["racket" "scheme"]
+    :racket_langserver [ :racket :scheme ]
     {:on_attach on-lsp-attach}))
 
 (let [winmap (fn [key]
@@ -442,6 +439,21 @@
   (winmap :<c-j>)
   (winmap :<c-k>)
   (winmap :<c-l>))
+
+; (use [:nvim-treesitter/nvim-treesitter
+;       :p00f/nvim-ts-rainbow
+;       :lewis6991/spellsitter.nvim]
+;      (let [rainbow (require :nvim-treesitter.configs)
+;            tree (require :nvim-treesitter.configs)
+;            spell (require :spellsitter)] 
+;        (tree.setup {
+;                     :rainbow {
+;                               :enable false
+;                               :extended_mode true
+;                               :max_file_lines 1000
+;                               }
+;                     })
+;        (spell.setup { :hl "Error" :capture []})))
 
 ; better defaults
 (u.noremap :n :Y  "y$")
@@ -485,5 +497,3 @@
 (u.noremap :i "(<CR>" "(<CR>)<c-o><s-o>")
 
 (u.noremap :n :<leader>y ":let @+ = expand('%:p')<CR>")
-
-; (end-timer init-timer "Init loaded in %f msecs.")
