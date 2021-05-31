@@ -235,13 +235,12 @@
 ;      (let [snipdir ]
 ;        (set vim.g.minisnip_dir (.. snipdir ":" (nvim.fn.join (nvim.fn.split (nvim.fn.glob (.. snipdir "**/") )  "\n")  ":")))))
 
-(use [(:Gavinok/vim-minisnip { :branch "optionalautoindent" })]
-     (set vim.g.minisnip_autoindent  0)
+; why did no one tell me you can use viml in vsnip
+(use [:hrsh7th/vim-vsnip]
      (set vim.g.name  "Gavin Jaeger-Freeborn")
      (set vim.g.email  "gavinfreeborn@gmail.com")
-     (set vim.g.minisnip_trigger  "<C-f>")
-     (let [snipdir (vim.fn.globpath "~/.vim/" "**/*extra/snip")]
-       (set vim.g.minisnip_dir (.. snipdir ":" (nvim.fn.join (nvim.fn.split (nvim.fn.glob (.. snipdir "**/") )  "\n")  ":")))))
+     ( vim.cmd "imap <expr> <C-f>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-f>'" )
+     (set vim.g.vsnip_snippet_dir (vim.fn.globpath vim.o.runtimepath "**/*vsnips")))
 
 ;; What langs need word processor settings
 (set nvim.g.writing_langs
