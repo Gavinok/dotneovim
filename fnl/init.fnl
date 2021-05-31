@@ -227,7 +227,13 @@
            :r "Rscript -"}))
 
 
-(use [:Gavinok/vim-troff])
+; (use [:Gavinok/vim-troff])
+
+; (use [(:Gavinok/vim-minisnip { :branch "optionalautoindent" })]
+;      (set vim.g.minisnip_autoindent  0)
+;      (set vim.g.minisnip_trigger  "<C-f>")
+;      (let [snipdir ]
+;        (set vim.g.minisnip_dir (.. snipdir ":" (nvim.fn.join (nvim.fn.split (nvim.fn.glob (.. snipdir "**/") )  "\n")  ":")))))
 
 (use [(:Gavinok/vim-minisnip { :branch "optionalautoindent" })]
      (set vim.g.minisnip_autoindent  0)
