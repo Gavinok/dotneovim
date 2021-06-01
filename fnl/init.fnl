@@ -210,9 +210,8 @@
        ;(u.map :s :<Tab> tab_complete)
        ;(u.map :i :<S-Tab> s_tab_complete)
        ;(u.map :s :<S-Tab> s_tab_complete)
-       (nvim.ex.inoremap "<silent><expr> <C-Space> compe#complete()")
-       (nvim.ex.inoremap "<silent><expr> <CR> compe#confirm('<CR>')")
-       (nvim.ex.inoremap "<silent><expr> <C-e> compe#close('<C-e>')")))
+       (nvim.ex.inoremap "<silent><expr> <C-X><C-X> compe#complete()")
+       (nvim.ex.inoremap "<silent><expr> <CR> compe#confirm('<CR>')")))
 
 (use [:tpope/vim-repeat
       :tpope/vim-commentary
