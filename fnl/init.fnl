@@ -322,9 +322,7 @@
               (nvim.ex.setlocal :spell)
               (nvim.ex.setlocal :expandtab)
               (nvim.ex.setlocal "shiftwidth=2")
-              (nvim.ex.setlocal "softtabstop=2")
-              ; viml initialization ../autoload/writing.vim
-              (nvim.fn.writing#init))]])
+              (nvim.ex.setlocal "softtabstop=2"))]])
 
 (local *lsp-attach-hook* {})
 (use [(:neovim/nvim-lspconfig {:opt true})]
