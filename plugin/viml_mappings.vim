@@ -40,3 +40,5 @@ if exists('##CmdLineEnter')
 		autocmd CmdLineLeave : set smartcase
 	augroup END
 endif
+let g:loaded_netrwPlugin = 1
+nnoremap gx :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())<cr>
