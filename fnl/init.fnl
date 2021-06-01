@@ -414,6 +414,19 @@
     :racket_langserver [ :racket :scheme ]
     {:on_attach on-lsp-attach}))
 
+;; Shortcuts
+(u.noremap :n :<leader>ft  ":setfiletype<space>") ; for filetype
+(u.noremap :n :<leader>hh  ":help<Space>")        ; for help
+
+(use [(:conweller/findr.vim {:opt true})]
+     (augroup :findr_settings
+              [[:FileType :findr.findr-files #(set vim.b.asyncomplete_enable 0)]])
+     (set vim.g.findr_max_hist 0)
+     (set vim.g.findr_floating_window 0)
+     (u.noremap :n  :<Leader>ff ":packadd findr.vim <bar>:Root<CR>:Findr<CR>" opts)
+     (u.noremap :n  :<Leader>b  ":packadd findr.vim <bar>FindrBuffers<CR>" opts))
+
+
 (let [winmap (fn [key]
                (let [tesc "<c-\\><c-n>"]
                  (do (u.noremap :n key (.. "<c-w>" key))
@@ -456,11 +469,7 @@
 ;; Quick buffer navigation
 (u.noremap :n "]b" ":silent! bnext<CR>")
 (u.noremap :n "[b" ":silent! bprevious<CR>")
-(u.noremap :n :<leader>b ":b <c-d>")
-
-;; Shortcuts
-(u.noremap :n :<leader>ft  ":setfiletype<space>") ; for filetype
-(u.noremap :n :<leader>hh  ":help<Space>")        ; for help
+; (u.noremap :n :<leader>b ":b <c-d>")
 
 ;; For Proper Tabbing And Bracket Insertion
 (u.noremap :i "{<CR>" "{<CR>}<c-o><s-o>")
