@@ -148,9 +148,9 @@
 
 (use [:hrsh7th/nvim-compe
       (:tzachar/compe-tabnine { :run "./install.sh" })
-      :nvim-lua/plenary.nvim]
+      :nvim-lua/plenary.nvim
+      :Gavinok/compe-nextword]
      (let [compe (require :compe)]
-       (require :compe_nextword)
        (compe.setup
          {:enabled true
           :autocomplete true
