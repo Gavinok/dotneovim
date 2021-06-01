@@ -296,11 +296,14 @@
 
 
 ; why did no one tell me you can use viml in vsnip
-(use [:hrsh7th/vim-vsnip]
-     (set vim.g.name  "Gavin Jaeger-Freeborn")
-     (set vim.g.email  "gavinfreeborn@gmail.com")
-     ( vim.cmd "imap <expr> <C-f>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-f>'" )
-     (set vim.g.vsnip_snippet_dir (vim.fn.globpath vim.o.runtimepath "**/*vsnips")))
+(use [(:hrsh7th/vim-vsnip {:opt true})]
+     (fn load-vsnip []
+       (vim.cmd "packadd vim-vsnip")
+       (set vim.g.name  "Gavin Jaeger-Freeborn")
+       (set vim.g.email  "gavinfreeborn@gmail.com")
+       (set vim.g.vsnip_snippet_dir (vim.fn.globpath vim.o.runtimepath "**/*vsnips"))
+       (vim.cmd "imap <expr> <C-f>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-f>'" ))
+     (vim.defer_fn load-vsnip 600))
 
 ;; What langs need word processor settings
 (set nvim.g.writing_langs
