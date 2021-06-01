@@ -1,0 +1,85 @@
+{
+  "for": {
+    "prefix": "for",
+    "body": [
+      "for (${size_t} ${i} = ${1:0}; ${i} < ${2:length}; ${i}++)",
+      "{",
+      "\t$3",
+      "}"
+    ],
+    "description": "Code snippet for 'for' loop"
+  },
+  "while": {
+    "prefix": "while",
+    "body": ["while ($1)", "{", "\t$2", "}"],
+    "description": ""
+  },
+  "if": {
+    "prefix": "if",
+    "body": ["if ($1)", "{", "\t$2", "}"],
+    "description": "Code snippet for if statement"
+  },
+  "enum": {
+    "prefix": "enum",
+    "body": ["enum ${MyEnum}", "{", "\t$1", "};"],
+    "description": "Code snippet for enum"
+  },
+  "struct": {
+    "prefix": "struct",
+    "body": ["struct ${MyStruct}", "{", "\t$1", "};"],
+    "description": "Code snippet for struct"
+  },
+  "switch": {
+    "prefix": "switch",
+    "body": ["switch (${switch_on})", "{", "default:", "\tbreak;$1", "}"],
+    "description": "Code snippet for switch statement"
+  },
+  "union": {
+    "prefix": "union",
+    "body": ["union ${MyUnion}", "{", "\t$1", "};"],
+    "description": "Code snippet for union"
+  },
+  "#inc": {
+    "prefix": "#inc",
+    "body": ["#include \"$1\""],
+    "description": "Code snippet for #include \" \""
+  },
+  "#def": {
+    "prefix": "def",
+    "body": ["#define $1 $2 "],
+    "description": "Code snippet for #define \" \""
+  },
+  "Standard Starter Template": {
+    "prefix": "sst",
+    "body": [
+      "#include <stdio.h>",
+      "",
+      "int main (int argc, char *argv[]) {",
+      "   return 0;",
+      "}"
+    ],
+    "description": "A standard starter template for a C program"
+  },
+  "Create linked list": {
+    "prefix": "clist",
+    "body": [
+      "typedef struct _node * Link;",
+      "typedef struct _node node;",
+      "struct _node {",
+      "    int value;",
+      "    Link next;",
+      "};"
+    ],
+    "description": "Creates a linked list template"
+  },
+  "Create int function": {
+    "prefix": "intfunc",
+    "body": ["int $1 () {", "   int $0;", "   return $0;", "}"],
+    "description": "Creates a function that returns the int type"
+  },
+  "Print variable of type integer": {
+    "prefix": "printf",
+    "body": ["printf(\"$0 :>> %d\\n\", $0);"],
+    "description": "Calls printf() to log value of variable of type signed integer"
+  }
+}

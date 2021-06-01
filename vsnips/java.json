@@ -1,0 +1,49 @@
+{
+	"print": {
+		"prefix": "printf",
+		"body": ["System.out.println($0);"],
+		"description": "Print to standard out"
+	},
+	"Switch Statement": {
+		"prefix": "switch",
+		"body": [
+			"switch (${1:key}) {",
+				"\tcase ${2:value}:",
+				"\t\t$0",
+				"\t\tbreak;",
+				"",
+				"\tdefault:",
+				"\t\tbreak;",
+				"}"
+		],
+		"description": "Switch Statement"
+	},
+	"for": {
+		"prefix": "for",
+		"body": [
+			"for (${1:int} ${2:i} = ${3:0}; $2 < ${4:max}; $2++) {",
+				"\t$0",
+				"}"
+		],
+		"description": "Indexed for loop"
+	},
+	"foreach": {
+		"prefix": "foreach",
+		"body": ["for (${1:type} ${2:var} : ${3:iterable}) {", "\t$0", "}"],
+		"description": "Enhanced for loop"
+	},
+	"Class": {
+		"prefix": ["class"],
+		"body": [
+			"/**",
+			" * @author ${VIM:\\$USER}",
+			" */",
+			"class $1 ${2:extends ${3:Parent} }{",
+				"\tconstructor() {",
+					"\t\t$0",
+					"\t}",
+					"}"
+		],
+		"description": "Class definition template."
+	}
+}

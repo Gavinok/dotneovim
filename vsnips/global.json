@@ -1,0 +1,9 @@
+{
+	"comments": {
+			"prefix": ["com"],
+			"body": [
+				"${VIM:substitute(&commentstring,'%s','<++>','')}"
+	],
+	"description": "Snippet Description."
+	}
+}

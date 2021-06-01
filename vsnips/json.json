@@ -1,0 +1,16 @@
+{
+	"Snippet": {
+		"prefix": ["snip"],
+		"body": [
+			"\t\"${1:snippet name}\": {",
+			"\t\t\"prefix\": [\"${2:snippet prefix}\"],",
+			"\t\t\"body\": [",
+			"\t\t\t${3:Contents of snippet}",
+			"],",
+			"\"description\": \"${0:Snippet description}.\"",
+			"}"
+		],
+		"description": "Genaric snippet"
+	}
+}
+

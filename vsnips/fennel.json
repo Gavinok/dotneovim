@@ -1,0 +1,32 @@
+{
+	"let": {
+		"prefix": "let",
+		"body": [
+			"letter"
+		]
+	},
+	"Each": {
+			"prefix": "each",
+			"body": [
+				"(each [ ${1:needle} ${2:[ \"hey\" \"stack\" ]}]",
+				"\t${0:(print needle)})"
+			],
+			"description": "for each loop"
+	},
+	"Eachkey": {
+		"prefix": "eachkey",
+		"body": [
+			"(each [ ${1:key} ${2:value} (pairs ${3: {:key1 52 :key2 99\\} })]",
+				"\t${0:(print key value)})"
+		],
+		"description": "for each loop over a key value table"
+	},
+	"For": {
+		"prefix": "for",
+		"body": [
+			"(for [${1:i} ${2:from} ${3:to}]",
+				"${4:(print i))}"
+		],
+		"description": "Incremental for loop"
+	}
+}
