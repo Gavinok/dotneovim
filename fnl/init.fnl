@@ -31,7 +31,6 @@
 (set vim.g.maplocalleader ",") ; map local leader to ,
 (u.map :n  :<space>  :<leader>)
 (u.map :x  :<space>  :<leader>)
-
 ;; Undo
 (set vim.o.undodir (.. (vim.fn.stdpath "cache") "/vim/undo/"))
 
@@ -294,7 +293,6 @@
            :r "Rscript -"}))
 
 
-
 ; why did no one tell me you can use viml in vsnip
 (use [(:hrsh7th/vim-vsnip {:opt true})]
      (fn load-vsnip []
@@ -474,5 +472,4 @@
 ;; For Proper Tabbing And Bracket Insertion
 (u.noremap :i "{<CR>" "{<CR>}<c-o><s-o>")
 (u.noremap :i "(<CR>" "(<CR>)<c-o><s-o>")
-
 (u.noremap :n :<leader>y ":let @+ = expand('%:p')<CR>")
