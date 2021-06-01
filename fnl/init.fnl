@@ -14,7 +14,6 @@
    (print (string.format msg (/ (- end start) 1000000)))))
 (local u    (require :util))
 (local a    (require :aniseed.core))
-(local print a.println)
 
 ;https://github.com/norcalli/nvim.lua
 (local nvim (require :aniseed.nvim))
