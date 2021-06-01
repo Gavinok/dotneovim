@@ -151,6 +151,7 @@
       :nvim-lua/plenary.nvim
       :Gavinok/compe-nextword]
      (let [compe (require :compe)]
+       (require :compe-abook)
        (compe.setup
          {:enabled true
           :autocomplete true
@@ -164,17 +165,18 @@
           :max_kind_width 100
           :max_menu_width 100
           :documentation true
-          :source {:path true
-                   :buffer true
-                   :tags true
-                   :calc true
+          :source {:vsnip    true
                    :nvim_lsp true
-                   :nvim_lua true
-                   :vsnip true
-                   :spell true
-                   :tabnine true
-                   :nextword true}})
-
+                   :path     true
+                   :nextword true
+                   :tabnine  true
+                   :calc     true
+                   :tags     true
+                   :buffer   true
+                   :spell    true
+                   :emoji      {:filetypes vim.g.writing_langs}
+                   :abook      {:filetypes vim.g.writing_langs}
+                   }})
        ;(fn t [str]
        ;  (vim.api.nvim_replace_termcodes str true true true))
 
