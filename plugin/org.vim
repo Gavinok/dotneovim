@@ -90,4 +90,7 @@ endfunction
 inoreabbrev <expr> <bar><bar>
 			\ <SID>isAtStartOfLine('\|\|') ?
 			\ '<c-o>:packadd vim-table-mode<cr><c-o>:TableModeEnable<cr><bar>' : '<bar><bar>'
+inoreabbrev <expr> <s
+			\ <SID>isAtStartOfLine('<s') ?
+			\ '#+BEGIN_SRC <c-r>=&filetype<cr><cr>#+END_SRC<c-o><s-o>' : '<s'
 " 2}}} "Orgmode
