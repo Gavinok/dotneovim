@@ -170,12 +170,12 @@
           :source {:vsnip    true
                    :nvim_lsp true
                    :path     true
-                   :nextword true
                    :tabnine  true
                    :calc     true
                    :tags     true
                    :buffer   true
-                   :spell    true
+                   :spell      {:filetypes vim.g.writing_langs}
+                   :nextword   {:filetypes vim.g.writing_langs}
                    :emoji      {:filetypes vim.g.writing_langs}
                    :abook      {:filetypes vim.g.writing_langs}
                    :necosyntax {:filetypes [:make :muttrc]}
