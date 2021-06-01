@@ -25,7 +25,6 @@
   (var results [])
   (let [ job (Job:new {:command  "abook"
                        :args ["--mutt-query" input]
-                       :cwd  (vim.fn.getcwd)
                        :on_stdout  (fn [_ data]
                                      (let [pieces (vim.split data  "\n"  true)]
                                        (each [ _ v (ipairs pieces) ]
