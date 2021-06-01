@@ -44,5 +44,3 @@
     (u.iabr "thx"  "Thanks,<CR><c-r>=b:mail_my_name<CR>")
     (u.iabr "sin" "Sincerely,<CR><c-r>=b:mail_my_name<CR>")))
 (vim.defer_fn mail_setup 300)
-
-
