@@ -294,13 +294,6 @@
            :r "Rscript -"}))
 
 
-; (use [:Gavinok/vim-troff])
-
-; (use [(:Gavinok/vim-minisnip { :branch "optionalautoindent" })]
-;      (set vim.g.minisnip_autoindent  0)
-;      (set vim.g.minisnip_trigger  "<C-f>")
-;      (let [snipdir ]
-;        (set vim.g.minisnip_dir (.. snipdir ":" (nvim.fn.join (nvim.fn.split (nvim.fn.glob (.. snipdir "**/") )  "\n")  ":")))))
 
 ; why did no one tell me you can use viml in vsnip
 (use [:hrsh7th/vim-vsnip]
