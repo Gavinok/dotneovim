@@ -17,4 +17,18 @@ function! myasyncomplete#setup()
 				\    'max_file_size': 50000000,
 				\  },
 				\ }))
+	call asyncomplete#register_source(asyncomplete#sources#tabnine#get_source_options({
+				\ 'name': 'tabnine',
+				\ 'allowlist': ['*'],
+				\ 'completor': function('asyncomplete#sources#tabnine#completor'),
+				\ 'config': {
+				\   'line_limit': 1000,
+				\   'max_num_result': 20,
+				\  },
+				\ }))
+	call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
+				\ 'name': 'necosyntax',
+				\ 'allowlist': ['*'],
+				\ 'completor': function('asyncomplete#sources#necosyntax#completor'),
+				\ }))
 endfunction
