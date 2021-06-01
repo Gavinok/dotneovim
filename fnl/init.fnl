@@ -357,7 +357,7 @@
               :<Leader>D       #(vim.lsp.buf.type_definition)
               :<Leader>wa      #(vim.lsp.buf.add_workspace_folder)
               :<Leader>wr      #(vim.lsp.buf.remove_workspace_folder)
-              :<Leader>wl      #(a.pr (vim.lsp.buf.list_workspace_folders))
+              :<Leader>wl      #(print (vim.lsp.buf.list_workspace_folders))
               :<Leader>lr      #(vim.lsp.buf.rename)
               :<Leader>la      #(vim.lsp.buf.code_action)
               :<Leader>le      #(vim.lsp.diagnostic.show_line_diagnostics)})
