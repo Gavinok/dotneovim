@@ -148,6 +148,8 @@
 
 (use [:hrsh7th/nvim-compe
       (:tzachar/compe-tabnine { :run "./install.sh" })
+      :Shougo/neco-syntax
+      :tamago324/compe-necosyntax
       :nvim-lua/plenary.nvim
       :Gavinok/compe-nextword]
      (let [compe (require :compe)]
@@ -176,6 +178,7 @@
                    :spell    true
                    :emoji      {:filetypes vim.g.writing_langs}
                    :abook      {:filetypes vim.g.writing_langs}
+                   :necosyntax {:filetypes [:make :muttrc]}
                    }})
        ;(fn t [str]
        ;  (vim.api.nvim_replace_termcodes str true true true))
