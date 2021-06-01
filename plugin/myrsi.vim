@@ -34,24 +34,6 @@ inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()?"\<Lt>
 " inoremap <expr> <C-F> col('.')>strlen(getline('.'))?"\<Lt>C-F>":"\<Lt>Right>"
 cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 
-function! s:transpose() abort
-  let pos = getcmdpos()
-  if getcmdtype() =~# '[?/]'
-    return "\<C-T>"
-  elseif pos > strlen(getcmdline())
-    let pre = "\<Left>"
-    let pos -= 1
-  elseif pos <= 1
-    let pre = "\<Right>"
-    let pos += 1
-  else
-    let pre = ""
-  endif
-  return pre . "\<BS>\<Right>".matchstr(getcmdline()[0 : pos-2], '.$')
-endfunction
-
-cnoremap <expr> <C-T> <SID>transpose()
-
 function! s:ctrl_u()
   if getcmdpos() > 1
     let @- = getcmdline()[:getcmdpos()-2]
