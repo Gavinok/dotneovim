@@ -17,6 +17,8 @@ paq {'savq/paq-nvim', opt=true}
 
 vim.g.loaded_tarPlugin = "v32"
 vim.g.loaded_zipPlugin = "v28"
+vim.g.loaded_gzip = 1
 vim.g.loaded_fzf = 1
+vim.g.loaded_2html_plugin = 1
 paq {'Olical/aniseed'}
-vim.g['aniseed#env'] = {compile=true}
+vim.g['aniseed#env'] = {compile=false}
