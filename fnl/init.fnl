@@ -382,7 +382,6 @@
           autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
           augroup END"))
 
-      (vim.cmd "call asyncomplete#register_source(asyncomplete#sources#lsp#get_source_options({}))")
       (u.run-hook *lsp-attach-hook* client bufnr))
 
   (u.defer-lsp-setup
