@@ -28,8 +28,7 @@
                        :on_stdout  (fn [_ data]
                                      (let [pieces (vim.split data  "\n"  true)]
                                        (each [ _ v (ipairs pieces) ]
-                                         (let [ email (. (vim.split v "\t" true) 1)
-                                               name (or (. (vim.split v "\t" true) 2) email)]
+                                         (let [ [email name] (vim.split v "\t" true) ]
                                            (table.insert results  {:word email
                                                                    :kind name
                                                                    :filter_text name }))))
