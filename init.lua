@@ -15,5 +15,8 @@ paq {'savq/paq-nvim', opt=true}
 
 -- Bootstrap Fennel
 
+vim.g.loaded_tarPlugin = "v32"
+vim.g.loaded_zipPlugin = "v28"
+vim.g.loaded_fzf = 1
 paq {'Olical/aniseed'}
 vim.g['aniseed#env'] = {compile=true}
