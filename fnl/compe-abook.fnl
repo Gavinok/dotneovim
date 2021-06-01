@@ -18,9 +18,8 @@
 (fn Source.determine [self context]
   (compe.helper.determine context))
 
-(fn Source.complete [self args]
-  (print context.input)
-  (self:collect args.context.before_line args.callback))
+(fn Source.complete [self context]
+  (self:collect context.context.before_line context.callback))
 
 (fn Source.collect [self input callback]
   (var results [])
