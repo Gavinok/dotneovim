@@ -22,6 +22,7 @@
 
 (require-macros :macros)
 
+(local executable? u.executable?)
 (local augroup u.augroup)
 (local iabr u.iabr)
 
@@ -85,12 +86,11 @@
          :wildignore      "*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache"
          :virtualedit     :block)
 
-(fn executable? [command]
-        (nvim.fn.executable command))
+
 
 ; Grepprg
 (if (executable? "rg")
-  ;then
+  ;;then
   (do
      (set vim.o.grepprg "rg  --vimgrep")
      (set vim.o.grepformat "%f:%l:%c:%m"))

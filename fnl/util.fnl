@@ -106,6 +106,9 @@
            (lsp.setup (do (tset opts :filetypes filetypes) opts))
            (lsp.manager.try_add)))]]))
 
+(fn executable? [command]
+        (nvim.fn.executable command))
+
 {:targ_fns *targ-fns*
             : iabr
             : map
@@ -115,4 +118,5 @@
             : run-hook
             : add-hook
             :lsp-init-hook *lsp-init-hook*
-            : defer-lsp-setup}
+            : defer-lsp-setup
+            : executable?}
