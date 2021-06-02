@@ -188,15 +188,16 @@
 
        (fn _G.tab_complete []
          (if (= (vim.fn.pumvisible) 1) ;then
-             (t :<C-n>) ;if
-             (check_back_space) ;;then
-             (t :<Tab>) ;else
-             (nvim.fn.compe#complete)))
+           (t :<C-n>) ;if
+           (check_back_space) ;;then
+           (t :<Tab>) ;else
+           (nvim.fn.compe#complete)))
 
        (fn _G.s_tab_complete []
          (if (= (vim.fn.pumvisible) 1)
-             (t :<C-p>) ;else
-             (t :<S-Tab>)))
+           (t :<C-p>) ;else
+           (t :<S-Tab>)))
+
 
        (vim.api.nvim_set_keymap :i :<Tab> "v:lua.tab_complete()"     {:expr true})
        (vim.api.nvim_set_keymap :i :<S-Tab> "v:lua.s_tab_complete()" {:expr true})
