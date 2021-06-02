@@ -151,6 +151,7 @@
       :tamago324/compe-necosyntax
       :nvim-lua/plenary.nvim
       :Gavinok/compe-nextword]
+     (set vim.o.completeopt "menuone,noselect")
      (let [compe (require :compe)]
        (require :compe-abook)
        (compe.setup
@@ -169,7 +170,7 @@
           :source {:vsnip    true
                    :nvim_lsp true
                    :path     true
-                   :tabnine  true
+                   ; :tabnine  true
                    :calc     true
                    :tags     true
                    :buffer   true
