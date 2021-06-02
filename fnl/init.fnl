@@ -210,9 +210,7 @@
 
        (vim.api.nvim_set_keymap :i :<Tab> "v:lua.tab_complete()"     {:expr true})
        (vim.api.nvim_set_keymap :i :<S-Tab> "v:lua.s_tab_complete()" {:expr true})
-       (nvim.ex.inoremap "<silent><expr> <C-X><C-X> compe#complete()")
-       (nvim.ex.inoremap "<silent><expr> <CR> compe#confirm('<CR>')")))
-
+       (nvim.ex.inoremap "<silent><expr> <C-X><C-X> compe#complete()")))
 
 (use [:tpope/vim-repeat
       :tpope/vim-commentary
