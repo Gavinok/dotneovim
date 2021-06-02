@@ -146,72 +146,63 @@
            "aniseed."))
 
 (use [:hrsh7th/nvim-compe
-      (:tzachar/compe-tabnine { :run "./install.sh" })
+      (:tzachar/compe-tabnine {:run :./install.sh})
       :Shougo/neco-syntax
       :tamago324/compe-necosyntax
       :nvim-lua/plenary.nvim
-      :Gavinok/compe-nextword]
-     (set vim.o.completeopt "menuone,noselect")
+      :Gavinok/compe-nextword] (set vim.o.completeopt "menuone,noselect")
      (let [compe (require :compe)]
        (require :compe-abook)
-       (compe.setup
-         {:enabled true
-          :autocomplete true
-          :debug false
-          :min_length 1
-          :preselect "enable"
-          :throttle_time 80
-          :source_timeout 200
-          :incomplete_delay 400
-          :max_abbr_width 100
-          :max_kind_width 100
-          :max_menu_width 100
-          :documentation true
-          :source {:vsnip    true
-                   :nvim_lsp true
-                   :path     true
-                   ; :tabnine  true
-                   :calc     true
-                   :tags     true
-                   :buffer   true
-                   :spell      {:filetypes vim.g.writing_langs}
-                   :nextword   {:filetypes vim.g.writing_langs}
-                   :emoji      {:filetypes vim.g.writing_langs}
-                   :abook      {:filetypes vim.g.writing_langs}
-                   :necosyntax {:filetypes [:make :muttrc]}
-                   }})
-       ;(fn t [str]
-       ;  (vim.api.nvim_replace_termcodes str true true true))
+       (compe.setup {:enabled true
+                     :autocomplete true
+                     :debug false
+                     :min_length 1
+                     :preselect :enable
+                     :throttle_time 80
+                     :source_timeout 200
+                     :incomplete_delay 400
+                     :max_abbr_width 100
+                     :max_kind_width 100
+                     :max_menu_width 100
+                     :documentation true
+                     :source {:vsnip true
+                              :nvim_lsp true
+                              :path true
+                              ; :tabnine  true
+                              :calc true
+                              :tags true
+                              :buffer true
+                              :spell {:filetypes vim.g.writing_langs}
+                              :nextword {:filetypes vim.g.writing_langs}
+                              :emoji {:filetypes vim.g.writing_langs}
+                              :abook {:filetypes vim.g.writing_langs}
+                              :necosyntax {:filetypes [:make :muttrc]}}})
 
-       ;(fn check_back_space []
-       ;  (let [col (- (vim.fn.col ".") 1)]
-       ;    (if (or (== col 0) (:  (: (vim.fn.getline ".") :sub col col) :match "%s"))
-       ;      true
-       ;      false)))
+       (fn t [str]
+         (vim.api.nvim_replace_termcodes str true true true))
 
-       ;(fn tab_complete []
-       ;  (if (== (vim.fn.pumvisible) 1)
-       ;    ;then
-       ;    (t "<C-n>")
-       ;    ;if
-       ;    (check_back_space)
-       ;    ;then
-       ;    (t "<Tab>")
-       ;    ;else
-       ;    (nvim.fn.compe#complete)))
+       (fn check_back_space []
+         (let [col (- (vim.fn.col ".") 1)]
+           (if (or (= col 0) (: (: (vim.fn.getline ".") :sub col col) :match
+                                "%s")) true false)))
 
-       ;(fn s_tab_complete []
-       ;  (if (== (vim.fn.pumvisible) 1
-       ;          (t "<C-p>")
-       ;          ;; If <S-Tab> is not working in your terminal, change it to <C-h>
-       ;          (t "<S-Tab>"))))
+       (fn _G.tab_complete []
+         (if (= (vim.fn.pumvisible) 1) ;then
+             (t :<C-n>) ;if
+             (check_back_space) ;;then
+             (t :<Tab>) ;else
+             (nvim.fn.compe#complete)))
 
-       ;(u.map :i :<Tab> tab_complete)
-       ;(u.map :s :<Tab> tab_complete)
-       ;(u.map :i :<S-Tab> s_tab_complete)
-       ;(u.map :s :<S-Tab> s_tab_complete)
+       (fn _G.s_tab_complete []
+         (if (= (vim.fn.pumvisible) 1)
+             (t :<C-p>) ;else
+             (t :<S-Tab>)))
+
+       (vim.api.nvim_set_keymap :i :<Tab> "v:lua.tab_complete()"     {:expr true})
+       (vim.api.nvim_set_keymap :i :<S-Tab> "v:lua.s_tab_complete()" {:expr true})
        (nvim.ex.inoremap "<silent><expr> <C-X><C-X> compe#complete()")
        (nvim.ex.inoremap "<silent><expr> <CR> compe#confirm('<CR>')")))
+
 
 (use [:tpope/vim-repeat
       :tpope/vim-commentary
