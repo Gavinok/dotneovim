@@ -11,7 +11,7 @@
 (fn escape-vim-keys [s]
   (s:gsub "<" "<lt>"))
 
-(fn func-to-cmd [f ident]
+(fn fn->cmd [f ident]
   (match (type f)
     :function (let [ident (match (type ident)
                             :function (ident)
@@ -21,13 +21,13 @@
                                :util ident))
     :string   f))
 
-(fn func-to-keys [f mode from bufnr buffer-local] 
+(fn fn->keys [f mode from bufnr buffer-local] 
   (match (type f)
     :function (let [ident (string.format 
                             "%s-%s-%s"
                             (if buffer-local (string.format "b-%s" bufnr) :g)
                             mode from)]
-                (.. ":" (escape-vim-keys (func-to-cmd f ident))))
+                (.. ":" (escape-vim-keys (fn->cmd f ident))))
     :string   f))
 
 (fn wrap-cmd [s]
@@ -42,7 +42,7 @@
   (let [bufnr (a.get opts :buffer)
         buffer-local (= (type bufnr) :number)
         to (-> to
-               (func-to-keys mode from bufnr buffer-local)
+               (fn->keys mode from bufnr buffer-local)
                (wrap-cmd))]
     (if buffer-local
       (nvim.buf_set_keymap
@@ -73,7 +73,7 @@
   (nvim.ex.augroup name)
   (nvim.ex.autocmd!)
   (each [_ [event pat cmd] (ipairs ...)]
-    (let [cmd (func-to-cmd cmd #(.. name event pat))]
+    (let [cmd (fn->cmd cmd #(.. name event pat))]
       (nvim.ex.autocmd event pat cmd)))
   (nvim.ex.augroup :END))
 
@@ -112,7 +112,7 @@
 {:targ_fns *targ-fns*
             : iabr
             : map
-            : func-to-cmd
+            : fn->cmd
             : noremap
             : augroup
             : run-hook
