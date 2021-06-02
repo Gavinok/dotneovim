@@ -118,8 +118,6 @@
                                :javascript { :cmd "node" } }))
 
 (augroup :aniseed_compile_on_save
-              [[:BufWritePost "~/*/*vim/*.fnl" #(let [e (require :aniseed.env)]
-                                                  (e.init))]])
          [[:BufWritePost "~/*/*vim/*.fnl" #(let [e (require :aniseed.env)]
                                              (e.init))]]
      (let [filetypes [ :fennel :clojure :racket :scheme :lisp]]
