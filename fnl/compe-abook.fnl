@@ -24,21 +24,22 @@
     (context.context.line:match "%a+$")
     context.callback))
 
-(fn Source.collect [self input callback]
+(fn Source.collect [self partofname callback]
   (var results [])
-  (let [ job (Job:new {:command  "abook"
-                       :args ["--mutt-query" input]
-                       :on_stdout  (fn [_ data]
-                                     (let [pieces (vim.split data  "\n"  true)]
-                                       (each [ _ v (ipairs pieces) ]
-                                         (let [ [email name] (vim.split v "\t" true) ]
-                                           (table.insert results  {:word email
-                                                                   :kind name
-                                                                   :filter_text name }))))
-                                     (callback {
-                                                :items  results
-                                                :incomplete  true
-                                                }))})]
+  (let [job (Job:new {:command :abook
+                      :args ["--mutt-query" partofname]
+                      :on_stdout (fn [_ data]
+                                   (let [pieces (vim.split data "\n" true)]
+                                     (each [_ v (ipairs pieces)]
+                                       (let [email (. (vim.split v "\t" true) 1)
+                                             name (or (. (vim.split v "\t" true)
+                                                         2)
+                                                      email)]
+                                         (table.insert results
+                                                       {:word email
+                                                        :kind name
+                                                        :filter_text name}))))
+                                   (callback {:items results :incomplete true}))})]
     (job:start))
   results)
 
