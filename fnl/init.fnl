@@ -146,7 +146,6 @@
            "aniseed."))
 
 (use [:hrsh7th/nvim-compe
-      (:tzachar/compe-tabnine {:run :./install.sh})
       :Shougo/neco-syntax
       :tamago324/compe-necosyntax
       :nvim-lua/plenary.nvim
