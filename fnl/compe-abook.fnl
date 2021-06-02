@@ -19,7 +19,10 @@
   (compe.helper.determine context))
 
 (fn Source.complete [self context]
-  (self:collect context.context.before_line context.callback))
+  (self:collect 
+    ;name currently being typed
+    (context.context.line:match "%a+$")
+    context.callback))
 
 (fn Source.collect [self input callback]
   (var results [])
