@@ -1,4 +1,9 @@
+(local u (require :util))
 (local nvim (require :aniseed.nvim))
+
+(if (u.executable? "fnlfmt")
+  (do (set vim.o.formatprg "fnlfmt -")
+    (set vim.o.formatexpr "")))
 
 (set vim.bo.suffixesadd ".fnl")
 (set vim.g.paredit_leader "<leader>")
