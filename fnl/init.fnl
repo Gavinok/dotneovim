@@ -303,8 +303,7 @@
        (vim.cmd "packadd vim-vsnip")
        (set vim.g.name  "Gavin Jaeger-Freeborn")
        (set vim.g.email  "gavinfreeborn@gmail.com")
-       (set vim.g.vsnip_snippet_dir (vim.fn.globpath vim.o.runtimepath "**/*vsnips"))
-       (vim.cmd "imap <expr> <C-f>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-f>'" ))
+       (set vim.g.vsnip_snippet_dir (vim.fn.globpath vim.o.runtimepath "**/*vsnips")))
      (vim.defer_fn load-vsnip 600))
 
 ;; What langs need word processor settings
