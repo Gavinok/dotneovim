@@ -198,6 +198,15 @@
            (t :<C-p>) ;else
            (t :<S-Tab>)))
 
+       (fn _G.smart_confirm []
+         (let [c-f #(if (= (vim.fn.vsnip#available 1) 1)
+                      (t "<Plug>(vsnip-expand-or-jump)") (t :<Right>))]
+           (if (= (vim.fn.pumvisible) 1)
+             (vim.fn.compe#confirm (c-f))
+             (c-f))))
+
+       (vim.api.nvim_set_keymap :i :<C-F> "v:lua.smart_confirm()"    {:expr true})
+       (vim.api.nvim_set_keymap :s :<C-F> "v:lua.smart_confirm()"    {:expr true})
 
        (vim.api.nvim_set_keymap :i :<Tab> "v:lua.tab_complete()"     {:expr true})
        (vim.api.nvim_set_keymap :i :<S-Tab> "v:lua.s_tab_complete()" {:expr true})
