@@ -120,24 +120,25 @@
 (augroup :aniseed_compile_on_save
               [[:BufWritePost "~/*/*vim/*.fnl" #(let [e (require :aniseed.env)]
                                                   (e.init))]])
-
-(let [filetypes [ :fennel :clojure :racket :scheme :lisp ] ]
-  "lisp settings"
-  (augroup :lisp_settings
-           [[:FileType (table.concat filetypes ",")
-           #(let [nopts {:noremap true :silent true :buffer bufnr}
-                  buf {:buffer bufnr}]
-              (nvim.ex.setlocal :expandtab)
-              (map* :o buf
-                    {:if :ib 
-                     ")" "])" 
-                     :af :ab  
-                     :is "i\""
-                     :as "a\""
-                     "(" "[("}) 
-              (map* :n nopts
-                    {")" "])"
-                     "(" "[("}))]]))
+         [[:BufWritePost "~/*/*vim/*.fnl" #(let [e (require :aniseed.env)]
+                                             (e.init))]]
+     (let [filetypes [ :fennel :clojure :racket :scheme :lisp]]
+       "lisp settings"
+       (augroup :lisp_settings
+                [[:FileType (table.concat filetypes ",")
+                  #(let [nopts {:noremap true :silent true :buffer bufnr}
+                         buf {:buffer bufnr}]
+                     (nvim.ex.setlocal :expandtab)
+                     (map* :o buf
+                           {:if :ib 
+                            ")" "])" 
+                            :af :ab  
+                            :is "i\""
+                            :as "a\""
+                            "(" "[("}) 
+                     (map* :n nopts
+                           {")" "])"
+                            "(" "[("}))]])))
 
 ;; fennel stuff
 (use [(:Olical/conjure {:opt true})]
