@@ -147,72 +147,7 @@
            :conjure#client#fennel#aniseed#aniseed_module_prefix
            "aniseed."))
 
-(use [:hrsh7th/nvim-compe
-      :Shougo/neco-syntax
-      :tamago324/compe-necosyntax
-      :nvim-lua/plenary.nvim
-      :Gavinok/compe-nextword
-      :Gavinok/compe-abook]
-     (set vim.o.completeopt "menuone,noselect")
-     (let [compe (require :compe)]
-       (compe.setup {:enabled true
-                     :autocomplete true
-                     :debug false
-                     :min_length 1
-                     :preselect :enable
-                     :throttle_time 80
-                     :source_timeout 200
-                     :incomplete_delay 400
-                     :max_abbr_width 100
-                     :max_kind_width 100
-                     :max_menu_width 100
-                     :documentation true
-                     :source {:vsnip true
-                              :nvim_lsp true
-                              :path true
-                              ; :tabnine  true
-                              :calc true
-                              :tags true
-                              :buffer true
-                              :spell {:filetypes vim.g.writing_langs}
-                              :nextword {:filetypes vim.g.writing_langs}
-                              :emoji {:filetypes vim.g.writing_langs}
-                              :abook {:filetypes vim.g.writing_langs}
-                              :necosyntax {:filetypes [:make :muttrc]}}})
 
-       (fn t [str]
-         (vim.api.nvim_replace_termcodes str true true true))
-
-       (fn check_back_space []
-         (let [col (- (vim.fn.col ".") 1)]
-           (if (or (= col 0) (: (: (vim.fn.getline ".") :sub col col) :match
-                                "%s")) true false)))
-
-       (fn _G.tab_complete []
-         (if (= (vim.fn.pumvisible) 1) ;then
-           (t :<C-n>) ;if
-           (check_back_space) ;;then
-           (t :<Tab>) ;else
-           (nvim.fn.compe#complete)))
-
-       (fn _G.s_tab_complete []
-         (if (= (vim.fn.pumvisible) 1)
-           (t :<C-p>) ;else
-           (t :<S-Tab>)))
-
-       (fn _G.smart_confirm []
-         (let [c-f #(if (= (vim.fn.vsnip#available 1) 1)
-                      (t "<Plug>(vsnip-expand-or-jump)") (t :<Right>))]
-           (if (= (vim.fn.pumvisible) 1)
-             (vim.fn.compe#confirm (c-f))
-             (c-f))))
-
-       (vim.api.nvim_set_keymap :i :<C-F> "v:lua.smart_confirm()"    {:expr true})
-       (vim.api.nvim_set_keymap :s :<C-F> "v:lua.smart_confirm()"    {:expr true})
-
-       (vim.api.nvim_set_keymap :i :<Tab> "v:lua.tab_complete()"     {:expr true})
-       (vim.api.nvim_set_keymap :i :<S-Tab> "v:lua.s_tab_complete()" {:expr true})
-       (nvim.ex.inoremap "<silent><expr> <C-X><C-X> compe#complete()")))
 
 (use [:tpope/vim-repeat
       :tpope/vim-commentary
@@ -305,7 +240,7 @@
      (vim.defer_fn load-vsnip 600))
 
 ;; What langs need word processor settings
-(set nvim.g.writing_langs
+(set vim.g.writing_langs
      [
       ;general
       :mail :gitcommit
@@ -323,6 +258,79 @@
               (nvim.ex.setlocal "shiftwidth=2")
               (nvim.ex.setlocal "softtabstop=2"))]])
 
+(use [:hrsh7th/nvim-compe
+      :Shougo/neco-syntax
+      :tamago324/compe-necosyntax
+      :nvim-lua/plenary.nvim
+      :Gavinok/compe-nextword
+      :Gavinok/compe-look
+      :Gavinok/compe-abook]
+     (set vim.o.completeopt "menuone,noselect")
+     (set vim.o.dictionary "/usr/share/dict/words" )
+     (let [compe (require :compe)]
+       (require :compe-look)
+       (compe.setup {:enabled true
+                     :autocomplete true
+                     :debug false
+                     :min_length 1
+                     :preselect :enable
+                     :throttle_time 80
+                     :source_timeout 200
+                     :incomplete_delay 400
+                     :max_abbr_width 100
+                     :max_kind_width 100
+                     :max_menu_width 100
+                     :documentation true
+                     :source {
+                              :vsnip true
+                              :look true
+                              :nvim_lsp true
+                              :path true
+                              ; :tabnine  true
+                              :calc true
+                              :tags true
+                              :buffer true
+                              :spell {:filetypes vim.g.writing_langs}
+                              :nextword {:filetypes vim.g.writing_langs}
+                              :emoji {:filetypes vim.g.writing_langs}
+                              :abook {:filetypes [ :mail ] }
+                              :look {:filetypes vim.g.writing_langs}
+                              :necosyntax {:filetypes [:make :muttrc]}
+                              }})
+
+       (fn t [str]
+         (vim.api.nvim_replace_termcodes str true true true))
+
+       (fn check_back_space []
+         (let [col (- (vim.fn.col ".") 1)]
+           (if (or (= col 0) (: (: (vim.fn.getline ".") :sub col col) :match
+                                "%s")) true false)))
+
+       (fn _G.tab_complete []
+         (if (= (vim.fn.pumvisible) 1) ;then
+           (t :<C-n>) ;if
+           (check_back_space) ;;then
+           (t :<Tab>) ;else
+           (nvim.fn.compe#complete)))
+
+       (fn _G.s_tab_complete []
+         (if (= (vim.fn.pumvisible) 1)
+           (t :<C-p>) ;else
+           (t :<S-Tab>)))
+
+       (fn _G.smart_confirm []
+         (let [c-f #(if (= (vim.fn.vsnip#available 1) 1)
+                      (t "<Plug>(vsnip-expand-or-jump)") (t :<Right>))]
+           (if (= (vim.fn.pumvisible) 1)
+             (vim.fn.compe#confirm (c-f))
+             (c-f))))
+
+       (vim.api.nvim_set_keymap :i :<C-F> "v:lua.smart_confirm()"    {:expr true})
+       (vim.api.nvim_set_keymap :s :<C-F> "v:lua.smart_confirm()"    {:expr true})
+
+       (vim.api.nvim_set_keymap :i :<Tab> "v:lua.tab_complete()"     {:expr true})
+       (vim.api.nvim_set_keymap :i :<S-Tab> "v:lua.s_tab_complete()" {:expr true})
+       (nvim.ex.inoremap "<silent><expr> <C-X><C-X> compe#complete()")))
 (local *lsp-attach-hook* {})
 (use [(:neovim/nvim-lspconfig {:opt true})]
      "Setup Lsp Support For Different Languages"
