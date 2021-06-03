@@ -25,7 +25,7 @@
             max   (vim.fn.line "$")]
         (if (< lnum max)
             (match (line:match (.. id ptrn))
-              str (let [(text _) (: str :gsub id "" 1)]
+              str (let [(text _) (string.gsub str id "" 1)]
                     text)
               nil (mail-param id ptrn (+ lnum 1)))
             :error)))
