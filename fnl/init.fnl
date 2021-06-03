@@ -230,7 +230,6 @@
      (vim.cmd
        "command! -bang -nargs=? -range=-1 Git packadd vim-fugitive | Git"))
 
-
 (use [:justinmk/vim-dirvish
       :tommcdo/vim-lion])
 
@@ -295,7 +294,6 @@
            :apl "apl -s"
            :javascript "node"
            :r "Rscript -"}))
-
 
 ; why did no one tell me you can use viml in vsnip
 (use [(:hrsh7th/vim-vsnip {:opt true})]
