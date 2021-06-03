@@ -2,8 +2,15 @@
 	"let": {
 		"prefix": "let",
 		"body": [
-			"letter"
+			"(let [${1}] ${0})"
 		]
+	},
+	"inspect": {
+		"prefix": "inspect",
+		"body": [ 
+			"(print (vim.inspect ${0}))"
+		],
+		"description": "inspect anything in vim"
 	},
 	"Each": {
 			"prefix": "each",
