@@ -4,6 +4,7 @@
 ; example 4 https://gitlab.com/TravonteD/neovim-config
 ; Automatic documentation https://gitlab.com/andreyorst/fenneldoc
 ; lua guid https://github.com/nanotee/nvim-lua-guide
+; TODO setup drawing with :set virtualedit=all
 
 (fn begin-timer []
   (vim.loop.hrtime))
@@ -85,8 +86,6 @@
          :wildmode        "longest:full,full"
          :wildignore      "*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache"
          :virtualedit     :block)
-
-
 
 ; Grepprg
 (if (executable? "rg")
@@ -440,7 +439,7 @@
 (u.noremap :n :Y  "y$")
 (u.map :n :<esc> ":pclose" {:silent true})
 
-(u.noremap :n "<leader>/"  ":nohlsearch<CR>" {:silent true})
+(u.noremap :n :<leader>/ ":nohlsearch<CR>" {:silent true})
 
 ;; Toggle Quickfix
 (u.noremap :n :<leader>v  ":call dotvim#ToggleQuickfix()<CR>"        {:silent true})
