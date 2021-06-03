@@ -151,9 +151,10 @@
       :Shougo/neco-syntax
       :tamago324/compe-necosyntax
       :nvim-lua/plenary.nvim
-      :Gavinok/compe-nextword] (set vim.o.completeopt "menuone,noselect")
+      :Gavinok/compe-nextword
+      :Gavinok/compe-abook]
+     (set vim.o.completeopt "menuone,noselect")
      (let [compe (require :compe)]
-       (require :compe-abook)
        (compe.setup {:enabled true
                      :autocomplete true
                      :debug false
