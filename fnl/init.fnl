@@ -138,6 +138,9 @@
                             "(" "[("}))]])))
 
 ;; fennel stuff
+
+(use [:milisims/nvim-luaref])
+
 (use [(:Olical/conjure {:opt true})]
      "Set Up Neovim For Fennel Development"
      (tset vim.g
