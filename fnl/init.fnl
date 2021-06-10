@@ -286,7 +286,6 @@
      (set vim.o.completeopt "menuone,noselect")
      (set vim.o.dictionary "/usr/share/dict/words" )
      (let [compe (require :compe)]
-       (require :compe-look)
        (compe.setup {:enabled true
                      :autocomplete true
                      :debug false
@@ -300,21 +299,20 @@
                      :max_menu_width 100
                      :documentation true
                      :source {
-                              :vsnip true
-                              :look true
-                              :nvim_lsp true
-                              :path true
+                              :vsnip      true
+                              :nvim_lsp   true
+                              :path       true
                               ; :tabnine  true
-                              :calc true
-                              :tags true
-                              :buffer true
-                              :spell {:filetypes vim.g.writing_langs}
-                              :nextword {:filetypes vim.g.writing_langs}
-                              :emoji {:filetypes vim.g.writing_langs}
-                              :abook {:filetypes [ :mail ] }
-                              :look {:filetypes vim.g.writing_langs}
+                              :calc       true
+                              :tags       true
+                              :buffer     true
+                              :abook      {:filetypes [:mail]}
                               :necosyntax {:filetypes [:make :muttrc]}
-                              }})
+                              :spell      {:filetypes vim.g.writing_langs}
+                              :nextword   {:filetypes vim.g.writing_langs}
+                              :emoji      {:filetypes vim.g.writing_langs}
+                              :look       {:filetypes vim.g.writing_langs}
+                              }}))
 
        (fn t [str]
          (vim.api.nvim_replace_termcodes str true true true))
