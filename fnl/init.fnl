@@ -190,8 +190,8 @@
      "Setup Colorscheme"
      (set vim.o.termguicolors true)
      (nvim.ex.colorscheme :spaceway)
-     (nvim.ex.highlight "Normal ctermbg=NONE")
-     (nvim.ex.highlight "Conceal ctermbg=NONE")
+     (nvim.ex.highlight "Normal      ctermbg=NONE")
+     (nvim.ex.highlight "Conceal     ctermbg=NONE")
      (nvim.ex.highlight "Normal      guibg=NONE")
      (nvim.ex.highlight "ColorColumn guibg=NONE")
      (nvim.ex.highlight "SignColumn  guibg=NONE")
