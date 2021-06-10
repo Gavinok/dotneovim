@@ -18,7 +18,6 @@
 
 ;https://github.com/norcalli/nvim.lua
 (local nvim (require :aniseed.nvim))
-; (local str  (require :aniseed.string))
 (local paq  (require :paq-nvim))
 
 (require-macros :macros)
