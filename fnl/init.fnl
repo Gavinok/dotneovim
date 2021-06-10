@@ -273,8 +273,8 @@
            #(let [opt {:buffer bufnr :silent true}]
               (nvim.ex.setlocal :spell)
               (nvim.ex.setlocal :expandtab)
-              (nvim.ex.setlocal "shiftwidth=2")
-              (nvim.ex.setlocal "softtabstop=2"))]])
+              (nvim.ex.setlocal :shiftwidth=2)
+              (nvim.ex.setlocal :softtabstop=2))]])
 
 (use [:hrsh7th/nvim-compe
       :Shougo/neco-syntax
