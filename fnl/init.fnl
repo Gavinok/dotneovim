@@ -442,13 +442,20 @@
 (u.noremap :n :<leader>ft  ":setfiletype<space>") ; for filetype
 (u.noremap :n :<leader>hh  ":help<Space>")        ; for help
 
-(use [(:conweller/findr.vim {:opt true})]
-     (augroup :findr_settings
-              [[:FileType :findr.findr-files #(set vim.b.asyncomplete_enable 0)]])
-     (set vim.g.findr_max_hist 0)
-     (set vim.g.findr_floating_window 0)
-     (u.noremap :n  :<Leader>ff ":packadd findr.vim <bar>:Root<CR>:Findr<CR>" opts)
-     (u.noremap :n  :<Leader>b  ":packadd findr.vim <bar>FindrBuffers<CR>" opts))
+(use [:camspiers/snap]
+     (let [snap (require :snap)]
+       ;interactive grep
+       (u.map :n :<leader>fg #(snap.run {:multiselect (. (snap.get :select.vimgrep) :multiselect)
+                                         :views       {1 (snap.get :preview.vimgrep)}
+                                         :select      (. (snap.get :select.vimgrep) :select)
+                                         :layout      (. (snap.get :layout) :bottom)
+                                         :producer    (snap.get :producer.ripgrep.vimgrep)}))
+       ;find files
+       (u.map :n :<leader>ff #(snap.run {:multiselect (. (snap.get :select.file) :multiselect)
+                                         :views       {1 (snap.get :preview.file)}
+                                         :select      (. (snap.get :select.file) :select)
+                                         :producer    ((snap.get :consumer.fzf) (snap.get :producer.ripgrep.file))}))))
+
 
 
 (let [winmap (fn [key]
@@ -494,6 +501,16 @@
 (u.noremap :n "]b" ":silent! bnext<CR>")
 (u.noremap :n "[b" ":silent! bprevious<CR>")
 ; (u.noremap :n :<leader>b ":b <c-d>")
+
+(u.map :n :ga #(do
+                 (vim.cmd (.. "split | term "
+                              ;; auto start emacsclient
+                              "emacsclient -nw -c -a= --eval "
+                              ;; run normal startup hooks
+                              "\"(run-hooks 'emacs-startup-hook)\"" " --eval "
+                              ;; display agenda
+                              "'(progn (org-batch-agenda \"d\")(delete-other-windows))'"))
+                 (vim.cmd "normal i")))
 
 ;; For Proper Tabbing And Bracket Insertion
 (u.noremap :i "{<CR>" "{<CR>}<c-o><s-o>")
