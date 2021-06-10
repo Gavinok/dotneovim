@@ -344,9 +344,10 @@
        (vim.api.nvim_set_keymap :i :<C-F> "v:lua.smart_confirm()"    {:expr true})
        (vim.api.nvim_set_keymap :s :<C-F> "v:lua.smart_confirm()"    {:expr true})
 
-       (vim.api.nvim_set_keymap :i :<Tab> "v:lua.tab_complete()"     {:expr true})
+       (vim.api.nvim_set_keymap :i :<Tab>   "v:lua.tab_complete()"   {:expr true})
        (vim.api.nvim_set_keymap :i :<S-Tab> "v:lua.s_tab_complete()" {:expr true})
-       (nvim.ex.inoremap "<silent><expr> <C-X><C-X> compe#complete()")))
+       (nvim.ex.inoremap "<silent><expr> <C-X><C-X> compe#complete()"))
+
 (local *lsp-attach-hook* {})
 (use [(:neovim/nvim-lspconfig {:opt true})]
      "Setup Lsp Support For Different Languages"
