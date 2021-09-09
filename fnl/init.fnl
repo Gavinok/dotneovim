@@ -1,10 +1,13 @@
-; example 1 https://github.com/steelsojka/dotfiles2/tree/107f53d112ee5a575af4d3a34b5b528294e5580e/.vim/fnl/dotfiles
-; example 2 https://github.com/Olical/dotfiles/tree/master/stowed/.config/nvim/fnl/dotfiles
-; example 3 https://www.github.com/Javyre/etc/tree/master/nvim%2Ffnl%2Finit.fnl
-; example 4 https://gitlab.com/TravonteD/neovim-config
-; Automatic documentation https://gitlab.com/andreyorst/fenneldoc
-; lua guid https://github.com/nanotee/nvim-lua-guide
-; TODO setup drawing with :set virtualedit=all
+;; Examples:
+;; 	https://github.com/steelsojka/dotfiles2/tree/107f53d112ee5a575af4d3a34b5b528294e5580e/.vim/fnl/dotfiles
+;; 	https://github.com/Olical/dotfiles/tree/master/stowed/.config/nvim/fnl/dotfiles
+;; 	https://www.github.com/Javyre/etc/tree/master/nvim%2Ffnl%2Finit.fnl
+;; 	https://gitlab.com/TravonteD/neovim-config
+;; 	https://github.com/tsbohc/.garden/tree/master/etc/nvim.d
+
+;; Automatic documentation https://gitlab.com/andreyorst/fenneldoc
+;; lua guid https://github.com/nanotee/nvim-lua-guide
+;; TODO setup drawing with :set virtualedit=all
 
 (fn begin-timer []
   (vim.loop.hrtime))
