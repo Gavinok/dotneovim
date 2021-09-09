@@ -419,26 +419,32 @@
                     ((lsp.util.root_pattern "gradle.build" ".project" ".git") $1)
                     (lsp.util.path.dirname $1)))})
 
-  (u.defer-lsp-setup
-    :ccls [:c :cpp :objc :objcpp]
-    {:init_options { :cache { "directory" "/tmp/ccls-cache" } }
-     :on_attach on-lsp-attach})
+  (u.defer-lsp-setup :ccls
+                     [:c :cpp :objc :objcpp]
+                     {:init_options { :cache { "directory" "/tmp/ccls-cache" } }
+                      :on_attach on-lsp-attach})
 
-  (u.defer-lsp-setup
-    :pyls [:python]
+  (u.defer-lsp-setup :pyls
+                     [:python]
     {:on_attach on-lsp-attach})
 
-  (u.defer-lsp-setup
-    :efm [:clojure :fennel :sh (table.concat vim.g.writing_langs ",")]
+  (u.defer-lsp-setup :efm
+                     [:clojure :fennel :sh (table.concat vim.g.writing_langs ",")]
     {:on_attach on-lsp-attach
      :root_dir #(let [lsp (require :lspconfig)]
                   (or
                     ((lsp.util.root_pattern "settings.gradle" ".git")
                      $1)
                     (lsp.util.path.dirname $1)))})
-  (u.defer-lsp-setup
-    :racket_langserver [ :racket :scheme ]
-    {:on_attach on-lsp-attach}))
+
+  (u.defer-lsp-setup :racket_langserver
+                     [ :racket :scheme ]
+    {:on_attach on-lsp-attach})
+
+  (u.defer-lsp-setup :elmls
+                     [:elm]
+                     {:on_attach on-lsp-attach})
+)
 
 ;; Shortcuts
 (u.noremap :n :<leader>ft  ":setfiletype<space>") ; for filetype
