@@ -224,8 +224,17 @@
                    ;   Accepts "midnight", for 23:59:59, or noon, for 12:00:00
                    })))
 
+(use [:kristijanhusak/orgmode.nvim
+      :Gavinok/OrgEval.vim
       (:dhruvasagar/vim-table-mode {:opt true})]
      "Setup Vim For Use With Org Files"
+     (let [org (require :orgmode)]
+       (org.setup {
+                   :org_agenda_file "~/Documents/org/*"
+                   :org_default_notes_file "~/Documents/org/refile.org"
+                   :mappings { :global {:org_agenda "gA"
+                                        :org_capture "gC"
+                                        }}}))
      ; set autocmd for orgfiles
      ; should be replaced with fennel
      ; Viml: let g:dotoo#agenda#files = ['~/Documents/org/*.org']
