@@ -129,6 +129,7 @@
 (use [:axvr/zepl.vim]
      (set vim.g.repl_config  {:clojure    { :cmd "joker --no-readline" }
                                :apl        { :cmd "apl" }
+                               :elm        { :cmd "elm repl" }
                                :sh         { :cmd "dash" }
                                :python     { :cmd "python" }
                                :scheme     { :cmd "racket" }
@@ -230,6 +231,7 @@
                                     (nvim.ex.setlocal :nowrap))]])
      (set vim.g.org_eval_run_cmd
           {:python "python3"
+           :elm  "elm repl"
            :clojure "joker"
            :lisp "janet"
            :racket "racket"
