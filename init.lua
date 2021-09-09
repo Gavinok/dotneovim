@@ -21,4 +21,4 @@ vim.g.loaded_gzip = 1
 vim.g.loaded_fzf = 1
 vim.g.loaded_2html_plugin = 1
 paq {'Olical/aniseed'}
-vim.g['aniseed#env'] = {compile=false}
+vim.g['aniseed#env'] = {compile=true}
