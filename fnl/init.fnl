@@ -351,7 +351,9 @@
        (nvim.ex.inoremap "<silent><expr> <C-X><C-X> compe#complete()"))
 
 (local *lsp-attach-hook* {})
-(use [(:neovim/nvim-lspconfig {:opt true})]
+(use [(:neovim/nvim-lspconfig {:opt true})
+      :weilbith/nvim-lsp-smag
+      :ray-x/lsp_signature.nvim]
      "Setup Lsp Support For Different Languages"
      (fn on-lsp-attach [client bufnr]
        ;; customize diagnostics
@@ -364,17 +366,20 @@
               (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics {; Disable virtual_text
                                                                        :virtual_text false
                                                                        :signs false}))
+         (vim.lsp.set_log_level "debug")
          (vim.cmd (..
                     "highlight LspDiagnosticsUnderlineError       guifg=#000000 guibg=" errr ext
                     "highlight LspDiagnosticsUnderlineWarning     guifg=#000000 guibg=" warn ext
                     "highlight LspDiagnosticsUnderlineInformation guifg=#000000 guibg=" info ext
                     "highlight LspDiagnosticsUnderlineHint        guifg=#000000 guibg=" hint ext)))
        (local opts {:noremap true :silent true :buffer bufnr})
+       ;; set keywordprg for programs that have support
+       (if (= vim.o.keywordprg ":Man")
+         (set vim.bo.keywordprg ":call v:lua.vim.lsp.buf.hover()\""))
        (map* :n opts
              {:gD              #(vim.lsp.buf.declaration)
               :gd              #(vim.lsp.buf.definition)
               :gR              #(vim.lsp.buf.references)
-              :K               #(vim.lsp.buf.hover)
               :gi              #(vim.lsp.buf.implementation)
               :gs              #(vim.lsp.buf.signature_help)
               "[d"             #(vim.lsp.diagnostic.goto_prev)
