@@ -9,6 +9,29 @@
 " Functions I want to autoload in my config
 scriptencoding utf-8 " ensure mulitbyte chars in this file are supported
 
+"todo apply a list of aliases on cmd enter
+function! dotvim#setaliases(aliases)
+	function! CommandAlias(from, to)
+		exec 'cnoreabbrev <expr> '.a:from
+					\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+					\ .'? ("'.a:to.'") : ("'.a:from.'"))'
+	endfunction
+	for key in keys(a:aliases)
+		call CommandAlias(key,a:aliases[key])
+	endfor
+endfunction
+" call CommandAlias('W','w')
+" call CommandAlias("w'",'w')
+" call CommandAlias('Wq','wq')
+" call CommandAlias('Q','q')
+" call CommandAlias('man','Man')
+" call CommandAlias('git','Git')
+" call CommandAlias('cp','!cp')
+" call CommandAlias('mv','!mv')
+" call CommandAlias('rm','!rm')
+" call CommandAlias('mkdir','!mkdir')
+" call CommandAlias('ss','s//g\<Left>\<Left>')
+
 " ToggleQuickfix {{{1
 function! dotvim#ToggleQuickfix() abort
 	let nr = winnr('$')
