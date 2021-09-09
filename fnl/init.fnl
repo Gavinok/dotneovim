@@ -484,16 +484,30 @@
 (use [:camspiers/snap]
      (let [snap (require :snap)]
        ;interactive grep
-       (u.map :n :<leader>fg #(snap.run {:multiselect (. (snap.get :select.vimgrep) :multiselect)
-                                         :views       {1 (snap.get :preview.vimgrep)}
-                                         :select      (. (snap.get :select.vimgrep) :select)
-                                         :layout      (. (snap.get :layout) :bottom)
-                                         :producer    (snap.get :producer.ripgrep.vimgrep)}))
-       ;find files
-       (u.map :n :<leader>ff #(snap.run {:multiselect (. (snap.get :select.file) :multiselect)
-                                         :views       {1 (snap.get :preview.file)}
-                                         :select      (. (snap.get :select.file) :select)
-                                         :producer    ((snap.get :consumer.fzf) (snap.get :producer.ripgrep.file))}))))
+       (let [ivy (fn []
+                      (let [wid (- vim.o.columns 6)
+                            ht (- (vim.api.nvim_get_option :lines)
+                                  (math.floor (/ vim.o.lines 2)))]
+                        {:width wid :height ht :row (- ht 1) :col 0}))]
+         (u.map :n :<leader>fg
+                #(snap.run {:views {1 (snap.get :preview.vimgrep)}
+                            :select (. (snap.get :select.vimgrep) :select)
+                            : layout
+                            :producer (snap.get :producer.ripgrep.vimgrep)}))
+         ;find files
+         (u.map :n :<leader>ff
+                #(snap.run {:views {1 (snap.get :preview.file)}
+                            :select (. (snap.get :select.file) :select)
+                            :layout ivy
+                            :producer ((snap.get :consumer.fzf) (snap.get :producer.luv.file))}))
+         (u.map :n :<leader>fs
+                #(snap.run {:views {1 (snap.get :preview.file)}
+                            :select (. (snap.get :select.file) :select)
+                            :layout ivy
+                            :producer ((snap.get :consumer.fzf) (. (snap.get :producer.luv.file)
+                                                                   :hidden))})))))
+
+
 
 
 
