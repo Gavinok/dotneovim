@@ -441,8 +441,8 @@
 
       (u.run-hook *lsp-attach-hook* client bufnr))
 
-  (u.defer-lsp-setup
-    :jdtls [:java]
+  (u.defer-lsp-setup :jdtls
+                     [:java]
     {:on_attach on-lsp-attach
      :cmd ["jdtls"]
      :root_dir #(let [lsp (require :lspconfig)]
