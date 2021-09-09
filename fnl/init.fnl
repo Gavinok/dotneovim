@@ -95,7 +95,7 @@
          :splitbelow     true                    ;; open below instead of above
          :splitright     true                    ;; open right instead of left
          ;
-         :clipboard      "unnamed,unnamedplus"            ;; xclip support
+         :clipboard      "unnamed,unnamedplus"   ;; xclip support
          :fillchars      "fold: ,diff: "
          ; substitution
          :inccommand     :split
@@ -159,7 +159,6 @@
                             "(" "[("}))]])))
 
 ;; fennel stuff
-
 (use [:milisims/nvim-luaref])
 
 (use [(:Olical/conjure {:opt true})]
@@ -167,8 +166,6 @@
      (tset vim.g
            :conjure#client#fennel#aniseed#aniseed_module_prefix
            "aniseed."))
-
-
 
 (use [:tpope/vim-repeat
       :tpope/vim-commentary
