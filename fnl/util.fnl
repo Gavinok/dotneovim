@@ -3,7 +3,6 @@
 (local a    (require :aniseed.core))
 (local nvim (require :aniseed.nvim))
 (local nu   (require :aniseed.nvim.util))
-
 ;; Keymap
 
 (local *targ-fns* {})
@@ -83,14 +82,13 @@
 ;; Hooks
 
 (fn run-hook [hook ...]
-  ; (a.pr hook) not sure what the point of this is
   (each [fun _ (pairs hook)]
     (fun ...)))
 
 (fn add-hook [hook fun]
   (a.assoc hook fun true))
 
-;; Lsp
+;; LSP
 
 (local *lsp-defer* {})
 (local *lsp-init-hook* {})

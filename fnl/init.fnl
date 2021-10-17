@@ -23,8 +23,9 @@
 (local nvim (require :aniseed.nvim))
 (local paq  (require :paq-nvim))
 
-(require :marks)
 (require-macros :macros)
+;; Solo Files
+(require :marks)
 
 (local executable? u.executable?)
 (local augroup u.augroup)
@@ -189,8 +190,7 @@
 
 (use [:NFrid/due.nvim]
      (let [due (require :due_nvim)]
-       (due.setup {
-                   :prescript  "due: "           ; prescript to due data
+       (due.setup {:prescript  "due: "           ; prescript to due data
                    :prescript_hi  "Comment"      ; highlight group of it
                    :due_hi  "String"             ; highlight group of the data itself
                    :ft  "*.org"                   ; filename template to apply aucmds :)
@@ -486,8 +486,6 @@
                   " 'reject_key': '<Up>',"
                   " })")))
 
-
-
 (let [winmap (fn [key]
                (let [tesc "<c-\\><c-n>"]
                  (do (u.noremap :n key (.. "<c-w>" key))
@@ -517,8 +515,8 @@
 
 ;; note that you can not use - in the middle of functions for it to work in neovim
 (u.map :n :<leader>sudo #(vim.cmd (..
-                                     ":w !sudo tee > /dev/null "
-                                     (nvim.fn.expand "%"))) {:silent true})
+                                    ":w !sudo tee > /dev/null "
+                                    (nvim.fn.expand "%"))) {:silent true})
 
 (u.noremap :n :<leader>co ":!opout %<CR>")
 
