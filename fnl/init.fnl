@@ -462,14 +462,18 @@
 ;; Shortcuts
 (u.noremap :n :<leader>ft  ":setfiletype<space>") ; for filetype
 (u.noremap :n :<leader>hh  ":help<Space>")        ; for help
+(u.noremap :n :<leader>ff  ":e ")
+(u.noremap :n :<leader>b   ":b ")
 
 ;; Improved command completion
 (use [(:gelguy/wilder.nvim {:run (fn [] (vim.cmd "UpdateRemotePlugins"))})]
+     ; (vim.cmd (.. "call wilder#set_option('use_python_remote_plugin',0)"))
      (vim.cmd (.. "call wilder#set_option('renderer', wilder#popupmenu_renderer("
                   "wilder#popupmenu_border_theme({"
                   " 'highlighter': wilder#basic_highlighter(),"
                   " 'highlights': {"
-                  "   'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),"
+                  "   'default': wilder#make_hl('WildBG', 'Pmenu', [{}, {}, {'background': '#000000'}]),"
+                  "   'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f', 'background': '#000000'}]),"
                   " },"
                   " 'min_width': '100%',"
                   " 'max_height': '30%',"
@@ -511,7 +515,6 @@
 
 (u.noremap :n :<BS>         "mz[s1z=`z")
 
-(u.noremap :n :<leader>ff         ":e ") ; should replace with just entering the keys
 ;; note that you can not use - in the middle of functions for it to work in neovim
 (u.map :n :<leader>sudo #(vim.cmd (..
                                      ":w !sudo tee > /dev/null "
