@@ -12,6 +12,7 @@
   (s:gsub "<" "<lt>"))
 
 (fn fn->cmd [f ident]
+  "Takes a function F and a keyword IDENT used to create a viml command"
   (match (type f)
     :function (let [ident (match (type ident)
                             :function (ident)
@@ -22,6 +23,9 @@
     :string   f))
 
 (fn fn->keys [f mode from bufnr buffer-local] 
+  "Takes a function F a MODE it is effective in the key FROM which to map
+  the buffernumber BUFNR it is local to and if the mapping is BUFFER-LOCAL"
+
   (match (type f)
     :function (let [ident (string.format 
                             "%s-%s-%s"
@@ -37,7 +41,6 @@
 
 (fn map [mode from to opts]
   "Sets a global mapping with opts.
-
   TO can be a string mapping or a lua function"
   (let [bufnr (a.get opts :buffer)
         buffer-local (= (type bufnr) :number)
@@ -51,7 +54,7 @@
         mode from to (or opts {})))))
 
 (fn iabr [from to]
-  "Shorthand for creating abbreviations"
+  "Shorthand for creating abbreviations FROM some input TO some output"
   (vim.cmd (.. "iabbrev "
                from " "
                to)))
