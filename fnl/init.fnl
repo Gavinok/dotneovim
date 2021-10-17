@@ -359,8 +359,12 @@
        (nvim.ex.inoremap "<silent><expr> <C-X><C-X> compe#complete()"))
 
 (local *lsp-attach-hook* {})
+
+(use [(:weilbith/nvim-lsp-smag {:opt true})]
+     (u.add-hook *lsp-attach-hook* 
+               #(nvim.ex.packadd :nvim-lsp-smag)))
+
 (use [(:neovim/nvim-lspconfig {:opt true})
-      :weilbith/nvim-lsp-smag
       :ray-x/lsp_signature.nvim]
      "Setup Lsp Support For Different Languages"
      (fn on-lsp-attach [client bufnr]
