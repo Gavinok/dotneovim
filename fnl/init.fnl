@@ -481,33 +481,24 @@
 (u.noremap :n :<leader>ft  ":setfiletype<space>") ; for filetype
 (u.noremap :n :<leader>hh  ":help<Space>")        ; for help
 
-(use [:camspiers/snap]
-     (let [snap (require :snap)]
-       ;interactive grep
-       (let [ivy (fn []
-                      (let [wid (- vim.o.columns 6)
-                            ht (- (vim.api.nvim_get_option :lines)
-                                  (math.floor (/ vim.o.lines 2)))]
-                        {:width wid :height ht :row (- ht 1) :col 0}))]
-         (u.map :n :<leader>fg
-                #(snap.run {:views {1 (snap.get :preview.vimgrep)}
-                            :select (. (snap.get :select.vimgrep) :select)
-                            : layout
-                            :producer (snap.get :producer.ripgrep.vimgrep)}))
-         ;find files
-         (u.map :n :<leader>ff
-                #(snap.run {:views {1 (snap.get :preview.file)}
-                            :select (. (snap.get :select.file) :select)
-                            :layout ivy
-                            :producer ((snap.get :consumer.fzf) (snap.get :producer.luv.file))}))
-         (u.map :n :<leader>fs
-                #(snap.run {:views {1 (snap.get :preview.file)}
-                            :select (. (snap.get :select.file) :select)
-                            :layout ivy
-                            :producer ((snap.get :consumer.fzf) (. (snap.get :producer.luv.file)
-                                                                   :hidden))})))))
-
-
+;; Improved command completion
+(use [(:gelguy/wilder.nvim {:run (fn [] (vim.cmd "UpdateRemotePlugins"))})]
+     (vim.cmd (.. "call wilder#set_option('renderer', wilder#popupmenu_renderer("
+                  "wilder#popupmenu_border_theme({"
+                  " 'highlighter': wilder#basic_highlighter(),"
+                  " 'highlights': {"
+                  "   'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),"
+                  " },"
+                  " 'min_width': '100%',"
+                  " 'max_height': '30%',"
+                  " })))"))
+     (vim.cmd (.. " call wilder#setup({"
+                  " 'modes': [':', '/', '?'],"
+                  " 'next_key': '<Tab>',"
+                  " 'previous_key': '<S-Tab>',"
+                  " 'accept_key': '<Down>',"
+                  " 'reject_key': '<Up>',"
+                  " })")))
 
 
 
@@ -538,6 +529,7 @@
 
 (u.noremap :n :<BS>         "mz[s1z=`z")
 
+(u.noremap :n :<leader>ff         ":e ") ; should replace with just entering the keys
 ;; note that you can not use - in the middle of functions for it to work in neovim
 (u.map :n :<leader>sudo #(vim.cmd (..
                                      ":w !sudo tee > /dev/null "
